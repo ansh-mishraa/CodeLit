@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import authRoutes from "./Routes/auth.routes.js";
 import cookieParser from "cookie-parser"
+import problemRoutes from "./Routes/problems.routes.js";
 
 dotenv.config(
     {path:"./src/.env"}
@@ -16,8 +17,9 @@ app.get("/",(req,res)=>{
     res.send("Welcome to LEETLAB")
 })
 
-app.use("/api/v1/auth", authRoutes)
 
+app.use("/api/v1/auth", authRoutes)
+app.use("/api/v1/problems", problemRoutes);
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT,()=>{

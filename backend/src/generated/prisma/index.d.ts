@@ -2216,8 +2216,8 @@ export namespace Prisma {
     hint: number
     editorial: number
     testCases: number
-    codeSnippet: number
-    referenceSolution: number
+    codeSnippets: number
+    referenceSolutions: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2262,8 +2262,8 @@ export namespace Prisma {
     hint?: true
     editorial?: true
     testCases?: true
-    codeSnippet?: true
-    referenceSolution?: true
+    codeSnippets?: true
+    referenceSolutions?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2353,8 +2353,8 @@ export namespace Prisma {
     hint: string | null
     editorial: string | null
     testCases: JsonValue
-    codeSnippet: JsonValue
-    referenceSolution: JsonValue
+    codeSnippets: JsonValue
+    referenceSolutions: JsonValue
     createdAt: Date
     updatedAt: Date
     _count: ProblemCountAggregateOutputType | null
@@ -2388,8 +2388,8 @@ export namespace Prisma {
     hint?: boolean
     editorial?: boolean
     testCases?: boolean
-    codeSnippet?: boolean
-    referenceSolution?: boolean
+    codeSnippets?: boolean
+    referenceSolutions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2407,8 +2407,8 @@ export namespace Prisma {
     hint?: boolean
     editorial?: boolean
     testCases?: boolean
-    codeSnippet?: boolean
-    referenceSolution?: boolean
+    codeSnippets?: boolean
+    referenceSolutions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2426,8 +2426,8 @@ export namespace Prisma {
     hint?: boolean
     editorial?: boolean
     testCases?: boolean
-    codeSnippet?: boolean
-    referenceSolution?: boolean
+    codeSnippets?: boolean
+    referenceSolutions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2445,13 +2445,13 @@ export namespace Prisma {
     hint?: boolean
     editorial?: boolean
     testCases?: boolean
-    codeSnippet?: boolean
-    referenceSolution?: boolean
+    codeSnippets?: boolean
+    referenceSolutions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProblemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "difficulty" | "tags" | "userId" | "examples" | "constraints" | "hint" | "editorial" | "testCases" | "codeSnippet" | "referenceSolution" | "createdAt" | "updatedAt", ExtArgs["result"]["problem"]>
+  export type ProblemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "difficulty" | "tags" | "userId" | "examples" | "constraints" | "hint" | "editorial" | "testCases" | "codeSnippets" | "referenceSolutions" | "createdAt" | "updatedAt", ExtArgs["result"]["problem"]>
   export type ProblemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2479,8 +2479,8 @@ export namespace Prisma {
       hint: string | null
       editorial: string | null
       testCases: Prisma.JsonValue
-      codeSnippet: Prisma.JsonValue
-      referenceSolution: Prisma.JsonValue
+      codeSnippets: Prisma.JsonValue
+      referenceSolutions: Prisma.JsonValue
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["problem"]>
@@ -2918,8 +2918,8 @@ export namespace Prisma {
     readonly hint: FieldRef<"Problem", 'String'>
     readonly editorial: FieldRef<"Problem", 'String'>
     readonly testCases: FieldRef<"Problem", 'Json'>
-    readonly codeSnippet: FieldRef<"Problem", 'Json'>
-    readonly referenceSolution: FieldRef<"Problem", 'Json'>
+    readonly codeSnippets: FieldRef<"Problem", 'Json'>
+    readonly referenceSolutions: FieldRef<"Problem", 'Json'>
     readonly createdAt: FieldRef<"Problem", 'DateTime'>
     readonly updatedAt: FieldRef<"Problem", 'DateTime'>
   }
@@ -3379,8 +3379,8 @@ export namespace Prisma {
     hint: 'hint',
     editorial: 'editorial',
     testCases: 'testCases',
-    codeSnippet: 'codeSnippet',
-    referenceSolution: 'referenceSolution',
+    codeSnippets: 'codeSnippets',
+    referenceSolutions: 'referenceSolutions',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -3627,8 +3627,8 @@ export namespace Prisma {
     hint?: StringNullableFilter<"Problem"> | string | null
     editorial?: StringNullableFilter<"Problem"> | string | null
     testCases?: JsonFilter<"Problem">
-    codeSnippet?: JsonFilter<"Problem">
-    referenceSolution?: JsonFilter<"Problem">
+    codeSnippets?: JsonFilter<"Problem">
+    referenceSolutions?: JsonFilter<"Problem">
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -3646,8 +3646,8 @@ export namespace Prisma {
     hint?: SortOrderInput | SortOrder
     editorial?: SortOrderInput | SortOrder
     testCases?: SortOrder
-    codeSnippet?: SortOrder
-    referenceSolution?: SortOrder
+    codeSnippets?: SortOrder
+    referenceSolutions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -3668,8 +3668,8 @@ export namespace Prisma {
     hint?: StringNullableFilter<"Problem"> | string | null
     editorial?: StringNullableFilter<"Problem"> | string | null
     testCases?: JsonFilter<"Problem">
-    codeSnippet?: JsonFilter<"Problem">
-    referenceSolution?: JsonFilter<"Problem">
+    codeSnippets?: JsonFilter<"Problem">
+    referenceSolutions?: JsonFilter<"Problem">
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -3687,8 +3687,8 @@ export namespace Prisma {
     hint?: SortOrderInput | SortOrder
     editorial?: SortOrderInput | SortOrder
     testCases?: SortOrder
-    codeSnippet?: SortOrder
-    referenceSolution?: SortOrder
+    codeSnippets?: SortOrder
+    referenceSolutions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProblemCountOrderByAggregateInput
@@ -3711,8 +3711,8 @@ export namespace Prisma {
     hint?: StringNullableWithAggregatesFilter<"Problem"> | string | null
     editorial?: StringNullableWithAggregatesFilter<"Problem"> | string | null
     testCases?: JsonWithAggregatesFilter<"Problem">
-    codeSnippet?: JsonWithAggregatesFilter<"Problem">
-    referenceSolution?: JsonWithAggregatesFilter<"Problem">
+    codeSnippets?: JsonWithAggregatesFilter<"Problem">
+    referenceSolutions?: JsonWithAggregatesFilter<"Problem">
     createdAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string
   }
@@ -3830,8 +3830,8 @@ export namespace Prisma {
     hint?: string | null
     editorial?: string | null
     testCases: JsonNullValueInput | InputJsonValue
-    codeSnippet: JsonNullValueInput | InputJsonValue
-    referenceSolution: JsonNullValueInput | InputJsonValue
+    codeSnippets: JsonNullValueInput | InputJsonValue
+    referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutProblemsInput
@@ -3849,8 +3849,8 @@ export namespace Prisma {
     hint?: string | null
     editorial?: string | null
     testCases: JsonNullValueInput | InputJsonValue
-    codeSnippet: JsonNullValueInput | InputJsonValue
-    referenceSolution: JsonNullValueInput | InputJsonValue
+    codeSnippets: JsonNullValueInput | InputJsonValue
+    referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -3866,8 +3866,8 @@ export namespace Prisma {
     hint?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testCases?: JsonNullValueInput | InputJsonValue
-    codeSnippet?: JsonNullValueInput | InputJsonValue
-    referenceSolution?: JsonNullValueInput | InputJsonValue
+    codeSnippets?: JsonNullValueInput | InputJsonValue
+    referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProblemsNestedInput
@@ -3885,8 +3885,8 @@ export namespace Prisma {
     hint?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testCases?: JsonNullValueInput | InputJsonValue
-    codeSnippet?: JsonNullValueInput | InputJsonValue
-    referenceSolution?: JsonNullValueInput | InputJsonValue
+    codeSnippets?: JsonNullValueInput | InputJsonValue
+    referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3903,8 +3903,8 @@ export namespace Prisma {
     hint?: string | null
     editorial?: string | null
     testCases: JsonNullValueInput | InputJsonValue
-    codeSnippet: JsonNullValueInput | InputJsonValue
-    referenceSolution: JsonNullValueInput | InputJsonValue
+    codeSnippets: JsonNullValueInput | InputJsonValue
+    referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -3920,8 +3920,8 @@ export namespace Prisma {
     hint?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testCases?: JsonNullValueInput | InputJsonValue
-    codeSnippet?: JsonNullValueInput | InputJsonValue
-    referenceSolution?: JsonNullValueInput | InputJsonValue
+    codeSnippets?: JsonNullValueInput | InputJsonValue
+    referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3938,8 +3938,8 @@ export namespace Prisma {
     hint?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testCases?: JsonNullValueInput | InputJsonValue
-    codeSnippet?: JsonNullValueInput | InputJsonValue
-    referenceSolution?: JsonNullValueInput | InputJsonValue
+    codeSnippets?: JsonNullValueInput | InputJsonValue
+    referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4177,8 +4177,8 @@ export namespace Prisma {
     hint?: SortOrder
     editorial?: SortOrder
     testCases?: SortOrder
-    codeSnippet?: SortOrder
-    referenceSolution?: SortOrder
+    codeSnippets?: SortOrder
+    referenceSolutions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -4524,8 +4524,8 @@ export namespace Prisma {
     hint?: string | null
     editorial?: string | null
     testCases: JsonNullValueInput | InputJsonValue
-    codeSnippet: JsonNullValueInput | InputJsonValue
-    referenceSolution: JsonNullValueInput | InputJsonValue
+    codeSnippets: JsonNullValueInput | InputJsonValue
+    referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4541,8 +4541,8 @@ export namespace Prisma {
     hint?: string | null
     editorial?: string | null
     testCases: JsonNullValueInput | InputJsonValue
-    codeSnippet: JsonNullValueInput | InputJsonValue
-    referenceSolution: JsonNullValueInput | InputJsonValue
+    codeSnippets: JsonNullValueInput | InputJsonValue
+    referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4588,8 +4588,8 @@ export namespace Prisma {
     hint?: StringNullableFilter<"Problem"> | string | null
     editorial?: StringNullableFilter<"Problem"> | string | null
     testCases?: JsonFilter<"Problem">
-    codeSnippet?: JsonFilter<"Problem">
-    referenceSolution?: JsonFilter<"Problem">
+    codeSnippets?: JsonFilter<"Problem">
+    referenceSolutions?: JsonFilter<"Problem">
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
   }
@@ -4677,8 +4677,8 @@ export namespace Prisma {
     hint?: string | null
     editorial?: string | null
     testCases: JsonNullValueInput | InputJsonValue
-    codeSnippet: JsonNullValueInput | InputJsonValue
-    referenceSolution: JsonNullValueInput | InputJsonValue
+    codeSnippets: JsonNullValueInput | InputJsonValue
+    referenceSolutions: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4694,8 +4694,8 @@ export namespace Prisma {
     hint?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testCases?: JsonNullValueInput | InputJsonValue
-    codeSnippet?: JsonNullValueInput | InputJsonValue
-    referenceSolution?: JsonNullValueInput | InputJsonValue
+    codeSnippets?: JsonNullValueInput | InputJsonValue
+    referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4711,8 +4711,8 @@ export namespace Prisma {
     hint?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testCases?: JsonNullValueInput | InputJsonValue
-    codeSnippet?: JsonNullValueInput | InputJsonValue
-    referenceSolution?: JsonNullValueInput | InputJsonValue
+    codeSnippets?: JsonNullValueInput | InputJsonValue
+    referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4728,8 +4728,8 @@ export namespace Prisma {
     hint?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
     testCases?: JsonNullValueInput | InputJsonValue
-    codeSnippet?: JsonNullValueInput | InputJsonValue
-    referenceSolution?: JsonNullValueInput | InputJsonValue
+    codeSnippets?: JsonNullValueInput | InputJsonValue
+    referenceSolutions?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

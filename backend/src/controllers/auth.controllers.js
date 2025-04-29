@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken";
 import {mailService} from "../utils/mail-sending.js"
 import crypto from 'crypto'
 import {generateAccessRefreshToken} from "../utils/generateAccessRefreshToken.js";
+import ApiError from "../utils/apiError.js";
+import ApiSuccess from "../utils/apiSuccess.js";
 
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -17,6 +19,7 @@ export const register = async (req, res) => {
     });
     
     if (existingUser) {
+      
       return res.status(400).json({
         success: false,
         error: "User already exists",
@@ -226,7 +229,7 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
- const userId= req.user;
+ const userId= req.user.id;
   await db.user.update({
     where:{
       id:userId
@@ -254,7 +257,7 @@ export const logout = async (req, res) => {
 };
 export const getProfile = async (req, res) => {
     // const userId= req.cookies.
-    const userId= req.user;
+    const userId= req.user.id;
   
     try {
       const user = await db.user.findUnique({

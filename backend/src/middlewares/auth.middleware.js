@@ -26,10 +26,7 @@ export const isLoggedIn = (req, res, next) => {
             console.log(decoded, "decoded");
             
             
-            req.user = decoded.id;
-            console.log(req.user, "after:user id from access token");
-            
-            
+            req.user = decoded; 
              next(); 
         })
 
@@ -63,7 +60,7 @@ export const isLoggedIn = (req, res, next) => {
             })
         }
             
-            req.user = decoded.id;
+            req.user = decoded;
             
              next();
         })
@@ -71,4 +68,38 @@ export const isLoggedIn = (req, res, next) => {
     
     return;
 
+}
+
+
+export  const isAdmin = (req, res, next) => {
+   try {
+     const userId=req.user.id;
+ 
+     const user = db.user.findUnique({
+         where:{
+             id:userId
+         }
+     });
+     if(!user){
+         return res.status(401).json({
+             success:false,
+             message:"User is not logged in, user not found"
+         })
+     }
+     if(user.role !== "ADMIN"){
+         return res.status(401).json({
+             success:false,
+             message:"User is not an admin"
+         })
+     }
+     next(); 
+   } catch (error) {
+     console.log(error);
+     return res.status(500).json({
+         success:false,
+         message:"Something went wrong",
+         error:error.message
+     })
+    
+   }
 }

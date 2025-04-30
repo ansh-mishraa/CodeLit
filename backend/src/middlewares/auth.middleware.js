@@ -71,13 +71,19 @@ export const isLoggedIn = (req, res, next) => {
 }
 
 
-export  const isAdmin = (req, res, next) => {
+export  const isAdmin = async (req, res, next) => {
    try {
      const userId=req.user.id;
  
-     const user = db.user.findUnique({
+     const user = await db.user.findUnique({
          where:{
              id:userId
+         },
+         select:{
+             id:true,
+             name:true,
+             email:true,
+             role:true,
          }
      });
      if(!user){
@@ -86,12 +92,15 @@ export  const isAdmin = (req, res, next) => {
              message:"User is not logged in, user not found"
          })
      }
+     console.log(user, "user");
+     
      if(user.role !== "ADMIN"){
          return res.status(401).json({
              success:false,
              message:"User is not an admin"
          })
      }
+     req.user=user;
      next(); 
    } catch (error) {
      console.log(error);

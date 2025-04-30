@@ -47,8 +47,8 @@ export const register = async (req, res) => {
       from: "LEETLAB test@gmail.com", // sender address
       to: email, // list of receivers
       subject: "Hello ✔", // Subject line
-      text:   `Visit below link to verify ${process.env.BASE_URL}/api/auth/verify-email?token=${verificationToken}`,// plain text body
-      html: `<b>Click below link to verify</b> <a href='${process.env.BASE_URL}/api/auth/verify-email?token=${verificationToken}'>Verify Email</a>`, // html body
+      text:   `Visit below link to verify ${process.env.BASE_URL}/api/auth/verify/${verificationToken}`,
+      html: `<b>Click below link to verify</b> <a href='${process.env.BASE_URL}/api/auth/verify/${verificationToken}'>Verify Email</a>`, // html body
     };
     
     const mail=await mailService(

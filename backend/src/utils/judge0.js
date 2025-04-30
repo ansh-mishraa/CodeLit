@@ -1,9 +1,10 @@
+import axios from "axios";
 export const getJudge0LanguageId = (language) => {
     const languageMap={
-        "C++ (GCC 9.2.0)":54,
-        "Java":62,
-        "Javascript":63,
-        "Python 3":71,
+        "C++":54,
+        "JAVA":62,
+        "JAVASCRIPT":63,
+        "PYTHON":71,
         "C":50,
     }
 
@@ -12,11 +13,20 @@ export const getJudge0LanguageId = (language) => {
 
 
 export const submitBatch = async (submissions) => {
-     const {data}= await axios.post(`${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`, {
-        submissions
-     });
-
-     return data;   
+    try {
+        console.log("submissions in submit", submissions);
+        
+         const {data}= await axios.post(`${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`, {
+            submissions
+         });
+         console.log("batch submission", data);
+         
+         return data;   
+    } catch (error) {
+        console.error("Error in batch submission", error);
+        throw new Error("Error in batch submission");
+        
+    }
 }
 
 
@@ -29,11 +39,15 @@ export const poolBatchResults = async (tokens) => {
             }
         })
 
-        const results = data.submissions.status_id;
+        const results = data.submissions;
+        console.log(results, "results");
+        
 
-        const isAllDone = results.every((result) => result.status_id !== 1 && result.status_id !== 2);
+        const isAllDone = results.every((result) => (result.status.id !== 1 && result.status.id !== 2));
 
         if(isAllDone){
+            console.log("All done", results);
+
             return results;
         }
 

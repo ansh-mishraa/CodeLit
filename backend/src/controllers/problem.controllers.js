@@ -122,12 +122,120 @@ export const createProblem = async (req, res) => {
     }
 }
 
-export const getAllProblems = async (req, res) => {}
+export const getAllProblems = async (req, res) => {
 
-export const getProblemById = async (req, res) => {}
+    try {
+        const problems= await db.problem.findMany();
+        return res.status(200).json({
+            success: true,
+            data: problems,
+            message: "Problems retrieved successfully"
+        });
+    } catch (error) {
+        console.error("Error in getting problems", error);
+        return res.status(500).json({
+            success: false,
+            error: "Error in getting problems"
+        });
+    }
+}
 
-export const updateProblem = async (req, res) => {}
+export const getProblemById = async (req, res) => {
+    const {id} = req.params;
+    try {
+        const problem= await db.problem.findUnique({
+            where:{
+                id
+            }
+        });
+        if(!problem){
+            return res.status(404).json({
+                success: false,
+                error: "Problem not found"
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            data: problem,
+            message: "Problem retrieved successfully"
+        });
+    } catch (error) {
+        console.error("Error in getting problem ", id, error);
+        return res.status(500).json({
+            success: false,
+            error: "Error in getting problem"
+        });
+    }
+}
 
-export const deleteProblem = async (req, res) => {}
+export const updateProblem = async (req, res) => {
+    const {id} = req.params;
+    const {title, description, tags, difficulty, examples, constraints, hint, editorial, testCases, codeSnippets, referenceSolutions} = req.body;
+    try {
+        const problem= await db.problem.update({
+            where:{
+                id
+            },
+            data:{
+                title,
+                description,
+                tags,
+                difficulty,
+                examples,
+                constraints,
+                hint,
+                editorial,
+                testCases,
+                codeSnippets,
+                referenceSolutions
+            }
+        });
+        if(!problem){
+            return res.status(404).json({
+                success: false,
+                error: "Problem not found"
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            data: problem,
+            message: "Problem updated successfully"
+        });
+    } catch (error) {
+        console.error("Error in updating problem ", id, error);
+        return res.status(500).json({
+            success: false,
+            error: "Error in updating problem"
+        });
+    }
+}
+
+export const deleteProblem = async (req, res) => {
+    const {id} = req.params;
+    try {
+        const problem= await db.problem.delete({
+            where:{
+                id
+            }
+        });
+        if(!problem){
+            return res.status(404).json({
+                success: false,
+                error: "Problem not found"
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            data: problem,
+            message: "Problem deleted successfully"
+        });
+    } catch (error) {
+        console.error("Error in deleting problem ", id, error);
+        return res.status(500).json({
+            success: false,
+            error: "Error in deleting problem"
+        });
+    }    
+}
 
 export const solvedProblemsByUser = async (req, res) => {}

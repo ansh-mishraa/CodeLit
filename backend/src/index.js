@@ -4,6 +4,7 @@ import authRoutes from "./Routes/auth.routes.js";
 import cookieParser from "cookie-parser"
 import problemRoutes from "./Routes/problems.routes.js";
 import executionRoutes from "./Routes/codeExecution.routes.js";
+import submissionRoutes from "./Routes/submission.routes.js";
 
 dotenv.config(
     {path:"./src/.env"}
@@ -22,6 +23,7 @@ app.get("/",(req,res)=>{
 app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/problems", problemRoutes);
 app.use("/api/v1/code-execution", executionRoutes)
+app.use("/api/v1/submission", submissionRoutes)
 
 const PORT = process.env.PORT || 8080;
 

@@ -44,6 +44,8 @@ model User{
   submissions Submission[]  //the submission user made, by solving the problem (Either right or wrong)
 
   solvedProblems ProblemSolved[] //the problems that are successfully solved (Marked as done)
+
+  playlists Playlist []
 }
 
 //Problem Model
@@ -75,6 +77,8 @@ model Problem{
   submissions Submission[]  //for the problem all the submissions
 
   solvedBy ProblemSolved[]  //for the problem those who solved it successfully
+
+  inPlaylist ProblemInPlaylist []
 
 }
 
@@ -149,4 +153,37 @@ model ProblemSolved {
   problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade) // relation with problem which is solved 
 
   @@unique([userId, problemId]) //both userId and problemId together uniquely define the tuple
+}
+
+
+model Playlist{
+  id String @id @default(uuid())
+  name String
+  description String?
+  
+  userId String
+
+  problems ProblemInPlaylist[]  //list of problems in a playlist
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) //relation with user who solved the problem successfully (marked as done)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, userId]) //CK is name and userId combination
+
+}
+
+model ProblemInPlaylist{
+  id String @id @default(uuid())
+  playlistId String
+  problemId String
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+ @@unique([playlistId, problemId])
+
 }

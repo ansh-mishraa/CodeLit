@@ -238,4 +238,32 @@ export const deleteProblem = async (req, res) => {
     }    
 }
 
-export const solvedProblemsByUser = async (req, res) => {}
+export const solvedProblemsByUser = async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+        const problems = await db.problem.findMany({
+            where: {
+                solvedBy: {
+                    some: {
+                        userId
+                    }
+                }
+            },
+            include: {
+                solvedBy:{
+                    where: {
+                        userId
+                    }
+                }
+            }
+        });
+        return res.status(200).json({
+            success: true,
+            data: problems,
+            message: "Solved problems retrieved successfully"
+        });
+    } catch (error) {
+        
+    }
+}

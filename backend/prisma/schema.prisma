@@ -24,6 +24,8 @@ enum Difficulty {
   HARD
 }
 
+
+//User Model
 model User{
   id String @id @default(uuid())
   name String?
@@ -37,14 +39,14 @@ model User{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  problems Problem[]
+  problems Problem[]   //the problem he created (as admin)
 
-  submissions Submission[]
+  submissions Submission[]  //the submission user made, by solving the problem (Either right or wrong)
 
-  solvedProblems ProblemSolved[]
+  solvedProblems ProblemSolved[] //the problems that are successfully solved (Marked as done)
 }
 
-
+//Problem Model
 model Problem{
   id String @id @default(uuid())
   title String
@@ -68,17 +70,18 @@ model Problem{
 
   //relationships
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)  // relation with user who created this problem
 
-  submissions Submission[]
+  submissions Submission[]  //for the problem all the submissions
 
-  solvedBy ProblemSolved[]
+  solvedBy ProblemSolved[]  //for the problem those who solved it successfully
 
 }
 
+//Submission Model
 model Submission {
   id String @id @default(uuid())
-  sourceCode Json
+  sourceCode String?
   language String
   status String
   timeTaken String?
@@ -97,14 +100,14 @@ model Submission {
 
   //relationships
 
-  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade) // relation with problem for which submission is made
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // relation with user by whom the submission is made
 
-  testCaseResults testCaseResult[]
+  testCaseResults TestCaseResult[] // all the results of testcases in the particular submission of the problem
 }
 
-
-model testCaseResult {
+//TestCaseResult Model
+model TestCaseResult {
   id String @id @default(uuid())
 
   testCase Int
@@ -112,7 +115,7 @@ model testCaseResult {
 
   stdOut String?
   expectedOutput String
-  strdErr String?
+  stdErr String?
 
   compiledOutput String?
   status String
@@ -126,12 +129,12 @@ model testCaseResult {
 
   //relationships
 
-  submission Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  submission Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade) // relation with submission for which submission the testcases are
 
-  @@index([submissionId])
+  @@index([submissionId])  //easy to find by submissionId
 }
 
-
+//Problem Solved Model
 model ProblemSolved {
   id String @id @default(uuid())
   userId String
@@ -142,8 +145,8 @@ model ProblemSolved {
 
   //relationships
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) //relation with user who solved the problem successfully (marked as done)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade) // relation with problem which is solved 
 
-  @@unique([userId, problemId])
+  @@unique([userId, problemId]) //both userId and problemId together uniquely define the tuple
 }

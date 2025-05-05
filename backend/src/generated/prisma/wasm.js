@@ -175,7 +175,7 @@ exports.Prisma.TestCaseResultScalarFieldEnum = {
   passed: 'passed',
   stdOut: 'stdOut',
   expectedOutput: 'expectedOutput',
-  strdErr: 'strdErr',
+  stdErr: 'stdErr',
   compiledOutput: 'compiledOutput',
   status: 'status',
   timeTaken: 'timeTaken',
@@ -232,7 +232,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   Problem: 'Problem',
   Submission: 'Submission',
-  testCaseResult: 'testCaseResult',
+  TestCaseResult: 'TestCaseResult',
   ProblemSolved: 'ProblemSolved'
 };
 

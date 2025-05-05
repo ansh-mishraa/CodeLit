@@ -11,6 +11,18 @@ export const getJudge0LanguageId = (language) => {
     return languageMap[language.toUpperCase()];
 }
 
+export const getLanguageName = (id) => {
+    const languageMap={
+        54:"C++",
+        62:"JAVA",
+        63:"JAVASCRIPT",
+        71:"PYTHON",
+        50:"C",
+    }
+
+    return languageMap[id] || "Unknown";
+}
+
 
 export const submitBatch = async (submissions) => {
     try {
@@ -56,3 +68,4 @@ export const poolBatchResults = async (tokens) => {
 
 
 }
+

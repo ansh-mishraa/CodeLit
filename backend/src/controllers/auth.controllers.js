@@ -8,6 +8,10 @@ import {generateAccessRefreshToken} from "../utils/generateAccessRefreshToken.js
 import ApiError from "../utils/apiError.js";
 import ApiSuccess from "../utils/apiSuccess.js";
 
+
+
+
+//Register User
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -20,10 +24,9 @@ export const register = async (req, res) => {
     
     if (existingUser) {
       
-      return res.status(400).json({
-        success: false,
-        error: "User already exists",
-      });
+      return res.status(400).json(
+        new ApiError(400, "User already exists", ["User already exists"])
+      );
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -38,18 +41,38 @@ export const register = async (req, res) => {
     //     maxAge: 1000 * 60 * 60 * 24 * 7
     // })
     
-    const verificationToken= crypto.randomBytes(10).toString("hex");
+    // const verificationToken= crypto.randomBytes(10).toString("hex");
+    const verificationToken=jwt.sign({id: email}, process.env.VERIFICATION_SECRET, {expiresIn:process.env.VERIFICATION_TOKEN_EXPIRES_IN});
     
     
     
     //mailtest
-    const mailOptions={
-      from: "LEETLAB test@gmail.com", // sender address
-      to: email, // list of receivers
-      subject: "Hello ✔", // Subject line
-      text:   `Visit below link to verify ${process.env.BASE_URL}/api/auth/verify/${verificationToken}`,
-      html: `<b>Click below link to verify</b> <a href='${process.env.BASE_URL}/api/auth/verify/${verificationToken}'>Verify Email</a>`, // html body
+    const mailOptions = {
+      from: "LEETLAB <test@gmail.com>", 
+      to: email, // List of receivers
+      subject: "Action Required: Verify Your Email Address", // Subject line
+      text: `Hello,\n\nPlease click the link below to verify your email address and complete your registration process:\n\n${process.env.BASE_URL}/api/v1/auth/verify/${verificationToken}\n\nIf you did not request this, please ignore this email.`,
+      html: `
+        <html>
+          <body style="font-family: Arial, sans-serif; color: #333;">
+            <div style="max-width: 600px; margin: auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
+              <h2 style="color: #4CAF50; text-align: center;">Welcome to LEETLAB!</h2>
+              <p>Hello,</p>
+              <p>Thank you for signing up. To complete your registration, please click the link below to verify your email address:</p>
+              <p style="text-align: center;">
+                <a href="${process.env.BASE_URL}/api/v1/auth/verify/${verificationToken}" 
+                   style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                  Verify Your Email
+                </a>
+              </p>
+              <p>If you did not request this, please ignore this email.</p>
+              <p>Best regards,</p>
+              <p>The LEETLAB Team</p>
+            </div>
+          </body>
+        </html>`,
     };
+    
     
     const mail=await mailService(
       mailOptions
@@ -57,10 +80,9 @@ export const register = async (req, res) => {
     
     
     if(!mail){
-      return res.status(400).json({
-        success: false,
-        error:"Error in sending Mail"
-      })
+      return res.status(400).json(
+        new ApiError(400, "Error in sending mail")
+      )
     }
     
     const newUser = await db.user.create({
@@ -73,23 +95,22 @@ export const register = async (req, res) => {
       },
     });
 
-    res.status(201).json({
-      success:true,
-        message:"User created successfully",
-        user:{
-            id:newUser.id,
-            email:newUser.email,
-            name:newUser.name,
-            role:newUser.role,
-            image:newUser.image ,
-        }
-    })
+    res.status(201).json(
+
+      new ApiSuccess(201, {
+        id: newUser.id,
+        email: newUser.email,
+        name: newUser.name,
+        role: newUser.role,
+        image: newUser.image,
+      }, "User created successfully")
+    );
+
+
   } catch (error) {
     console.error("Error in creating User", error)
-    res.status(500).json({
-      success:false,
-        error:"Error creating user"
-    })
+    res.status(500).json(
+      new ApiError(500, "Error creating user", [error]))
   }
 };
 
@@ -98,26 +119,37 @@ export const register = async (req, res) => {
 
 
 
-
+//Verify User from Email
 export const userVerify = async (req, res) => {
   const {token} = req.params;
   if(!token){
-    return res.status(400).json({
-      success:false,
-        error:"Token is required"
-    })
+    return res.status(400).json(
+      new ApiError(400, "Token is required")
+    )
   }
+
+  const decodedToken = jwt.verify(token, process.env.VERIFICATION_SECRET);
+  if(!decodedToken){
+    return res.status(400).json(
+      new ApiError(400, "Invalid token")
+    )
+  }
+  
   try {
     const user = await db.user.findUnique({
       where:{
-        verificationToken:token
+        email:decodedToken.id
       }
     })
     if(!user){
-      return res.status(400).json({
-        success:false,
-          error:"Invalid token"
-      })
+      return res.status(400).json(
+        new ApiError(400, "User not found")
+      )
+    }
+    if(user.isVerified){
+      return res.status(400).json(
+        new ApiError(400, "User is already verified")
+      )
     }
 
     await db.user.update({
@@ -125,41 +157,36 @@ export const userVerify = async (req, res) => {
         id:user.id
       },
       data:{
-        verificationToken:undefined,
+        verificationToken:null,
         isVerified:true
       }
     })
-
-    res.status(200).json({
-      success:true,
-        message:"User verified successfully",
-        user:{
-            id:user.id,
-            email:user.email,
-            name:user.name,
-            role:user.role,
-            image:user.image 
-        }
-    })
+    res.status(200).json(
+      new ApiSuccess(200, {
+        id:user.id,
+        email:user.email,
+        name:user.name,
+        role:user.role,
+        image:user.image
+      }, "User verified successfully")
+    )
   } catch (error) {
     console.error("Error in verifying User", error)
-    res.status(500).json({
-      success:false,
-        error:"Error verifying user"
-    })
+    res.status(500).json(
+      new ApiError(500, "Error   user", [error])
+    )
   }
 }
 
 
 
-
+//Login User
 export const login = async (req, res) => {
   const {email,password} = req.body;
   if(!email || !password){
-      return res.status(400).json({
-          success:false,
-          error:"Email and password are required"
-      })
+      return res.status(400).json(
+          new ApiError(400, "Email and password are required")
+      )
   }
   try {
     const user = await db.user.findUnique({
@@ -167,19 +194,17 @@ export const login = async (req, res) => {
     })
 
     if(!user){
-      return res.status(400).json({
-        success:false,
-          error:"User not found"
-      })
+      return res.status(400).json(
+        new ApiError(400, "User not found")
+      )
     }
 
   const isMatch = await bcrypt.compare(password,user.password);
 
   if(!isMatch){
-    return res.status(400).json({
-        success:false,
-        error:"Invalid credentials"
-    })
+    return res.status(400).json(
+      new ApiError(400, "Invalid credentials")
+    )
   }
 
   const {accessToken,refreshToken} = generateAccessRefreshToken(user);

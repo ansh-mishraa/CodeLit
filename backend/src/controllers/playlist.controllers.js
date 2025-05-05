@@ -1,4 +1,4 @@
-import { db } from "../libs/db";
+import { db } from "../libs/db.js";
 
 export const getAllPlaylists = async (req, res) => {
   const userId = req.user.id;
@@ -32,7 +32,9 @@ export const getAllPlaylists = async (req, res) => {
 
 export const createPlaylist = async (req, res) => {
   const { name, description } = req.body;
-
+    const userId = req.user.id;
+    console.log(userId);
+    
   try {
     if (!name || !description) {
       return res.status(400).json({
@@ -44,7 +46,7 @@ export const createPlaylist = async (req, res) => {
     const existingPlaylist = await db.playlist.findFirst({
       where: {
         name,
-        userId,
+        userId
       },
     });
     if (existingPlaylist) {
@@ -57,7 +59,7 @@ export const createPlaylist = async (req, res) => {
       data: {
         name,
         description,
-        userId: req.user.id,
+        userId
       },
     });
     if (!playlist) {
@@ -117,12 +119,12 @@ export const deletePlaylist = async (req, res) => {
 
 export const updatePlaylist = async (req, res) => {
   const { playlistId } = req.params;
-
+    const userId = req.user.id;
   try {
     const playlist = await db.playlist.findFirst({
       where: {
         id: playlistId,
-        userId: req.user.id,
+        userId
       },
     });
 
@@ -136,7 +138,7 @@ export const updatePlaylist = async (req, res) => {
     const updatedPlaylist = await db.playlist.update({
       where: {
         id: playlistId,
-        userId: req.user.id,
+        userId
       },
       data: {
         name: req.body.name,
@@ -145,7 +147,7 @@ export const updatePlaylist = async (req, res) => {
     });
     return res.status(200).json({
       success: true,
-      playlist,
+      updatedPlaylist,
       message: "Playlist updated successfully",
     });
   } catch (error) {

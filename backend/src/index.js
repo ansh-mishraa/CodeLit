@@ -9,7 +9,7 @@ import playlistRoutes from "./Routes/playlist.routes.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 // import swaggerDocument from "../swagger-output.json";
-
+import cors from "cors"
 import fs from 'fs';
 import path from 'path';
 
@@ -21,8 +21,15 @@ const swaggerSpec = JSON.parse(
     fs.readFileSync(path.resolve('./swagger-output.json'), 'utf8')
   );
 const app = express();
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        credentials: true
+    })
+)
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
 app.use(cookieParser());
 
 app.get("/",(req,res)=>{

@@ -1,0 +1,107 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-logo: var(--logo);
+  --color-logo-foreground: var(--logo-foreground);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* === Light Mode === */
+  --background: #fefbf5;
+  --foreground: #202020;
+
+  --card: #ffffff;
+  --card-foreground: #202020;
+
+  --popover: #ffffff;
+  --popover-foreground: #202020;
+
+  --primary: #f4a00a;
+  --primary-foreground: #ffffff;
+
+  --secondary: #d0e4ff;
+  --secondary-foreground: #202020;
+
+  --muted: #f4f4f4;
+  --muted-foreground: #555555;
+
+  --accent: #e8f1ff;
+  --accent-foreground: #202020;
+
+  --destructive: #ff4d4f;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #cbd5e0;
+
+  --logo: #f4a00a;
+  --logo-foreground: #ffffff;
+}
+
+.dark {
+  /* === Dark Mode === */
+  --background: #1a1a1a;
+  --foreground: #e8f1ff;
+
+  --card: #232323;
+  --card-foreground: #fefefe;
+
+  --popover: #2a2a2a;
+  --popover-foreground: #f0f0f0;
+
+  --primary: #f4a00a;
+  --primary-foreground: #1a1a1a;
+
+  --secondary: #4265ff;
+  --secondary-foreground: #ffffff;
+
+  --muted: #2c2c2c;
+  --muted-foreground: #aaaaaa;
+
+  --accent: #334155;
+  --accent-foreground: #e8f1ff;
+
+  --destructive: #ff4d4f;
+  --border: #333333;
+  --input: #444444;
+  --ring: #718096;
+
+  --logo: #f4a00a;
+  --logo-foreground: #1a1a1a;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

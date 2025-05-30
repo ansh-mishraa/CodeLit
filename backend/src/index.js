@@ -37,7 +37,7 @@ app.get("/",(req,res)=>{
 })
 
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/problems", problemRoutes);

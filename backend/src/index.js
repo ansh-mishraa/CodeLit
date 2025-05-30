@@ -6,8 +6,8 @@ import problemRoutes from "./Routes/problems.routes.js";
 import executionRoutes from "./Routes/codeExecution.routes.js";
 import submissionRoutes from "./Routes/submission.routes.js";
 import playlistRoutes from "./Routes/playlist.routes.js";
-import swaggerUi from "swagger-ui-express";
-import swaggerJsdoc from "swagger-jsdoc";
+// import swaggerUi from "swagger-ui-express";
+// import swaggerJsdoc from "swagger-jsdoc";
 // import swaggerDocument from "../swagger-output.json";
 import cors from "cors"
 import fs from 'fs';
@@ -17,9 +17,9 @@ import path from 'path';
 dotenv.config(
     {path:"./src/.env"}
 );
-const swaggerSpec = JSON.parse(
-    fs.readFileSync(path.resolve('./swagger-output.json'), 'utf8')
-  );
+// const swaggerSpec = JSON.parse(
+//     fs.readFileSync(path.resolve('./swagger-output.json'), 'utf8')
+//   );
 const app = express();
 app.use(
     cors({

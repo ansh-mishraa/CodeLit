@@ -95,7 +95,7 @@ const Navbar = () => {
                     Profile
                   </DropdownMenuItem>
                 </Link>
-                {authUser?.role === "ADMIN" && <Link to={"/profile"}>
+                {authUser?.role === "ADMIN" && <Link to={"/add-problem"}>
                   <DropdownMenuItem>
                     <Code className="mr-2 h-4 w-4" />
                     Add Prolem

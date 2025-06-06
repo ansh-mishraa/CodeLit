@@ -67,18 +67,16 @@ function App() {
                 path="/add-problem"
                 element={authUser ? <AddProblem /> : <Navigate to="/login" />}
               />
-              
             )}
-            <Route 
-              path="/problem/:id"
-              element={authUser ? <ProblemPage /> : <Navigate to="/login" />}/>
-            <Route
-                path="/update-problem/:id"
-                element={authUser ? <CreateProblemForm /> : <Navigate to="/login" />}
-              />
+            
+           
           </Route>
           {/* Auth */}
 
+ <Route
+              path="/problem/:id"
+              element={authUser ? <ProblemPage /> : <Navigate to="/login" />}
+            />
           <Route
             path="/login"
             element={!authUser ? <LoginPage /> : <Navigate to="/" />}
@@ -91,6 +89,8 @@ function App() {
             path="/verify-email"
             element={!authUser ? <SignupPage /> : <EmailVerify />}
           />
+
+         
           {/* <Route path="/forgot-password" element={}/> */}
         </Routes>
       </BrowserRouter>

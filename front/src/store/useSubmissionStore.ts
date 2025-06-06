@@ -8,9 +8,15 @@ interface Submission {
   sourceCode: string;
   problemId: string;
   createdAt: string;
+  testCaseResults: TestCaseResult[];
   // Add more fields as needed
 }
-
+interface TestCaseResult {
+  input: string;
+  expectedOutput: string;
+  userOutput: string;
+  passed: boolean;
+}
 // Define the store type
 interface SubmissionStore {
   isLoading: boolean;
@@ -48,7 +54,7 @@ export const useSubmissionStore = create<SubmissionStore>((set, get) => ({
       const res = await axiosInstance.get(
         `/submission/get-submission/${problemId}`
       );
-      set({ submission: res.data.submissions[0] }); // or use the full array if needed
+      set({ submission: res.data.submissions }); // or use the full array if needed
     } catch (error) {
       console.error("Error getting submissions for problem", error);
       toast.error("Error getting submissions for problem");

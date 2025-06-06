@@ -1,0 +1,113 @@
+/* Container for the Circle */
+.circleContainer {
+  height: 108px;
+  width: 108px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 0 auto;
+  font-size: 13.5px;
+  font-weight: normal;
+  color: rgb(158, 158, 158);
+}
+
+/* Background Circle */
+.backgroundCircle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid rgb(224, 224, 224);
+  position: absolute;
+  background: white;
+}
+
+/* SVG Circle */
+.svgCircle {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  fill: transparent;
+  transform: rotate(-90deg); /* Start from the top */
+  transform-origin: 50% 50%; /* Ensure it rotates from the center */
+}
+
+/* Easy Circle (1/3 of top 3/5 portion) */
+.easyCircle {
+  fill: none;
+  stroke: rgb(67, 160, 71); /* Green */
+  stroke-linecap: round;
+  stroke-width: 3.375px;
+  transition: stroke-width 0.3s ease;
+}
+
+/* Hover effect on Easy Circle */
+.easyCircle:hover {
+  stroke-width: 6px; /* Increase the stroke width on hover */
+}
+
+/* Medium Circle (1/3 of top 3/5 portion) */
+.mediumCircle {
+  fill: none;
+  stroke: rgb(251, 140, 0); /* Orange */
+  stroke-linecap: round;
+  stroke-width: 3.375px;
+  transition: stroke-width 0.3s ease;
+}
+
+/* Hover effect on Medium Circle */
+.mediumCircle:hover {
+  stroke-width: 6px;
+}
+
+/* Hard Circle (1/3 of top 3/5 portion) */
+.hardCircle {
+  fill: none;
+  stroke: rgb(233, 30, 99); /* Red */
+  stroke-linecap: round;
+  stroke-width: 3.375px;
+  transition: stroke-width 0.3s ease;
+}
+
+/* Hover effect on Hard Circle */
+.hardCircle:hover {
+  stroke-width: 6px;
+}
+
+/* Text Container */
+.circleTextContainer {
+  z-index: 1; /* Ensure the text is above the circles */
+  text-align: center;
+  color: rgb(33, 33, 33);
+}
+
+/* Solved Percentage Text */
+.circelPercentage {
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: rgb(33, 33, 33);
+}
+
+/* Status Text */
+.status {
+  font-size: 12px;
+  color: rgb(158, 158, 158);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .circleContainer {
+    height: 80px;
+    width: 80px;
+  }
+
+  .circelPercentage {
+    font-size: 20px;
+  }
+
+  .status {
+    font-size: 10px;
+  }
+}

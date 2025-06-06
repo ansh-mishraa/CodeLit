@@ -9,6 +9,14 @@ interface Submission {
   problemId: string;
   output: string;
   createdAt: string;
+  memoryUsed: string;
+  timeTaken: string;
+  languageId: number;
+  status: string; // e.g., "success", "error"
+  expectedOutputs: string[];
+  stdin: string[];
+
+  
   // Add more fields based on your backend response
 }
 
@@ -50,15 +58,17 @@ export const useExecutionStore = create<ExecutionStore>((set) => ({
           problemId,
         })
       );
-
-      const res = await axiosInstance.post("/execute-code", {
+      console.log("check vvfnsdvjasj SDBHABHVBHBHFFFFFFFFFFFFFFFFFHSDBHBH", problemId);
+      
+      const res = await axiosInstance.post("/code-execution", {
         source_code,
         language_id,
         stdin,
         expected_outputs,
-        problemId,
+        problem_id: problemId,
       });
-
+      console.log("Response from code execution:", res.data);
+      
       set({ submission: res.data.submission });
       toast.success(res.data.message);
     } catch (error) {

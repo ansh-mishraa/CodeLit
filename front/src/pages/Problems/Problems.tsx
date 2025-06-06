@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {useActions} from "@/store/useAction"
 
-import { Pencil, Trash2, Plus, Bookmark } from "lucide-react";
+import { Pencil, Trash2, Plus, Bookmark, CheckCircle } from "lucide-react";
 
 import {
   Select,
@@ -28,6 +28,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
+import { ModeToggle } from "@/components/mode-toggle";
 
 
 const Problems = () => {
@@ -139,7 +140,7 @@ const Problems = () => {
           </DialogContent>
         </Dialog>
       </div>
-
+<ModeToggle />
       {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6 justify-end ">
         <Input
@@ -200,7 +201,12 @@ const Problems = () => {
                     className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150 border-t "
                   >
                     <td className="px-4 py-3 text-center">
-                      <input type="checkbox" checked={isSolved} readOnly />
+                      <CheckCircle
+                        size={20}
+                        className={`${
+                          isSolved ? "text-green-500" : "text-gray-400"
+                        }`}
+                      />
                     </td>
                     <td className="px-4 py-3 font-medium text-orange-500 dark:text-white whitespace-nowrap min-w-70 ">
                       <Link to={`/problem/${problem.id}`}>

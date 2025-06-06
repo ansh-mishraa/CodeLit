@@ -35,7 +35,7 @@ export const executeCode = async (req, res) => {
         let allPassed = true;
 
         const detailedResults = results.map((result,index)=>{
-            const stdout = result.stdout.trim();
+            const stdout = result.stdout?.trim();
             const expected_output = expected_outputs[index].trim();
             if(stdout !== expected_output){
                 allPassed = false;

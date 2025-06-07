@@ -7,10 +7,14 @@ type ProblemState = {
   solvedProblems: any[];
   isProblemsLoading: boolean;
   isProblemLoading: boolean;
+  solvedBY: any[];
+  userName: any;
 
   getAllProblems: () => Promise<void>;
   getProblemById: (id: any) => Promise<void>;
   getSolvedProblemByUser: () => Promise<void>;
+  getAllSolvedByUser: () => Promise<void>;
+  getUserNameById: (id: any) => Promise<void>;
 };
 export const useProblemStore = create<ProblemState>((set) => ({
   problems: [],
@@ -18,6 +22,8 @@ export const useProblemStore = create<ProblemState>((set) => ({
   solvedProblems: [],
   isProblemsLoading: false,
   isProblemLoading: false,
+  solvedBY: [],
+  userName: null,
   
 
   getAllProblems: async () => {
@@ -58,14 +64,37 @@ export const useProblemStore = create<ProblemState>((set) => ({
 
   getSolvedProblemByUser: async () => {
     try {
-      const res = await axiosInstance.get("/problems/get-solved-problem");
-
-      set({ solvedProblems: res.data.problems });
+      const res = await axiosInstance.get("/problems/get-solved-problems");
+      console.log(res.data.data);
+      
+      set({ solvedProblems: res.data.data });
     } catch (error) {
       console.log("Error getting solved problems", error);
       toast.error("Error getting solved problems");
     }
-  }
+  },
 
+  getAllSolvedByUser: async () => {
+    try {
+      const res = await axiosInstance.get("/problems/all-solvedby");
+      console.log(res.data.data);
+      
+      set({ solvedBY: res.data.data });
+    } catch (error) {
+      console.log("Error getting solved problems", error);
+      toast.error("Error getting solved problems");
+    }
+  },
+  getUserNameById: async (id:any) => {
+    try {
+      const res = await axiosInstance.get(`/problems/user-name/${id}`);
+      console.log(res.data.data);
+      
+      set({ userName: res.data.data });
+    } catch (error) {
+      console.log("Error getting solved problems", error);
+      toast.error("Error getting solved problems");
+    }
+  },
   
 }));

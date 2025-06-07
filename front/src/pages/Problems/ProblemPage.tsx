@@ -245,7 +245,7 @@ const ProblemPage = () => {
                 </div>
               </>
             )}
-            <ProblemHints hints={problem.hints} />
+            <ProblemHints hints={["Hint 1", "Hint 2"]} />
             <ProblemMetaAccordion
               tags={problem.tags.map(
                 (tag: any) => tag.charAt(0).toUpperCase() + tag.slice(1)

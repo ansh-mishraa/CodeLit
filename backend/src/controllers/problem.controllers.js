@@ -264,6 +264,85 @@ export const solvedProblemsByUser = async (req, res) => {
             message: "Solved problems retrieved successfully"
         });
     } catch (error) {
-        
+        console.error("Error in getting Solved problems ", id, error);
+        return res.status(500).json({
+            success: false,
+            error: "Error in getting solved problem"
+        });
+    }
+}
+
+export const solvedProblemByAllUsers = async (req, res) => {
+    try {
+        const problems = await db.problem.findMany({
+            include: {
+                solvedBy: true,
+                id:false,
+                description:false,
+                tags:false,
+                userId:false,
+                examples:false,
+                constraints:false,
+                hint:false,
+                editorial:false,
+                testCases:false,
+                codeSnippets:false,
+                referenceSolutions:false,
+                createdAt:false,
+                updatedAt:false
+            }
+        });
+        return res.status(200).json({
+            success: true,
+            data: problems,
+            message: "Solved problems retrieved successfully"
+        });
+    } catch (error) {
+        console.error("Error in getting Solved problems ", id, error);
+        return res.status(500).json({
+            success: false,
+            error: "Error in getting solved problem"
+        });
+    }
+}
+
+export const getUserNameById= async (req, res) => {
+    const {id} = req.params;
+    try {
+        const user= await db.user.findUnique({
+            where:{
+                id
+            },
+            select: {
+                name: true,
+                email: false,
+                role: false,
+                password: false,
+                createdAt: false,
+                updatedAt: false,
+                verificationToken: false,
+                refreshToken: false,
+                isVerified: false,
+                id: false
+
+            }
+        });
+        if(!user){
+            return res.status(404).json({
+                success: false,
+                error: "User not found"
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            data: user,
+            message: "User retrieved successfully"
+        });
+    } catch (error) {
+        console.error("Error in getting user ", id, error);
+        return res.status(500).json({
+            success: false,
+            error: "Error in getting user"
+        });
     }
 }

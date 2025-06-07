@@ -1,6 +1,6 @@
 import express from "express";
 import { isAdmin, isLoggedIn } from "../middlewares/auth.middleware.js";
-import { createProblem, deleteProblem, getAllProblems, getProblemById, solvedProblemsByUser, updateProblem } from "../controllers/problem.controllers.js";
+import { createProblem, deleteProblem, getAllProblems, getProblemById, solvedProblemsByUser, updateProblem, solvedProblemByAllUsers, getUserNameById } from "../controllers/problem.controllers.js";
 
 
 const problemRoutes = express.Router();
@@ -11,6 +11,8 @@ problemRoutes.get("/get-problem/:id", isLoggedIn, getProblemById);
 problemRoutes.put("/update-problem/:id", isLoggedIn, isAdmin, updateProblem);
 problemRoutes.delete("/delete-problem/:id", isLoggedIn, isAdmin, deleteProblem);
 problemRoutes.get("/get-solved-problems", isLoggedIn, solvedProblemsByUser);
+problemRoutes.get("/all-solvedby", isLoggedIn, solvedProblemByAllUsers);
+problemRoutes.get("/user-name/:id", isLoggedIn, getUserNameById);
 // problemRoutes.get("/get-problem-submissions/:id", isLoggedIn, getProblemSubmissions);
 // problemRoutes.post("/submit-problem/:id", isLoggedIn, submitProblem);
 

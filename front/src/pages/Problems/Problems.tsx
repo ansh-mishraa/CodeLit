@@ -43,7 +43,7 @@ const Problems = () => {
   
   const [selectedPlaylist, setSelectedPlaylist] = useState("");
   
-  const { createPlaylist, playlists, addProblemToPlaylist} = usePlaylistStore();
+  const { createPlaylist, playlists, addProblemToPlaylist, getAllPlaylists} = usePlaylistStore();
   const { getAllProblems, problems = [],} = useProblemStore();
   const {onDeleteProblem} = useActions();
   
@@ -53,7 +53,8 @@ const Problems = () => {
 
   useEffect(() => {
     getAllProblems();
-  }, [getAllProblems, onDeleteProblem]);
+    getAllPlaylists();
+  }, [getAllProblems, onDeleteProblem, getAllPlaylists]);
 
   const uniqueTags = useMemo(() => {
     const tags = new Set();
@@ -321,6 +322,7 @@ const Problems = () => {
             >
               <option value="">Select a playlist</option>
               {playlists.map((playlist) => (
+                
                 <option key={playlist.id} value={playlist.id}>
                   {playlist.name}
                 </option>

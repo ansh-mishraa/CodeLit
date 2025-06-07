@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { useAuthStore } from "./store/useAuthStore";
 import HomePage from "./pages/Landing/HomePage";
 import { useEffect } from "react";
-import { Home, Loader2 } from "lucide-react";
+import {  Loader2 } from "lucide-react";
 import logo from "@/assets/dark.svg";
 import Layout from "./pages/Layout/Layout";
 import Problems from "./pages/Problems/Problems";

@@ -26,7 +26,6 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { usePlaylistStore } from "@/store/usePlaylistStore";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
-import { ModeToggle } from "@/components/mode-toggle";
 
 const Problems = () => {
   const { authUser } = useAuthStore();

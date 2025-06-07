@@ -1,22 +1,18 @@
-import React, { use, useEffect, useState } from "react";
+import  {  useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Trophy, CheckCircle, Flame, Star } from "lucide-react";
+import { Trophy,  Flame,  } from "lucide-react";
 
 import Pie from "./components/PieChart";
 import ActivityHeatmapCard from "./components/HeatMap";
 import ProblemCardList from "./components/SolvedProblem";
-
-import { useSubmissionStore } from "@/store/useSubmissionStore";
 import { useProblemStore } from "@/store/useProblemStore";
-import { set } from "react-hook-form";
 
 
 
 const currentUser = { name: "Ansh Mishra", score: 107, rank: 21_764 };
 
 export default function Profile() {
-  const [SubmissionCount, setSubmissionCount] = React.useState(0);
   const normalizeDateFormat = (data: any[]) => {
     return data.map((entry) => {
       const date = new Date(entry.date);
@@ -24,7 +20,6 @@ export default function Profile() {
       return { ...entry, date: normalizedDate };
     });
   };
-  const [difficultyCount, setDifficultyCount] = useState([0, 0, 0]);
   const [easyCount, setEasyCount] = useState(0);
   const [mediumCount, setMediumCount] = useState(0);
   const [litCoin, setLitCoin] = useState(0);
@@ -36,9 +31,7 @@ export default function Profile() {
     getAllSolvedByUser,
     solvedBY,
     getUserNameById,
-    userName,
   } = useProblemStore();
-  const [loading, setLoading] = useState(true);
   const [heatData, setHeatData] = useState([]);
   const normalizedData = normalizeDateFormat(heatData);
   const [solvedUserList, setSolvedUserList] = useState({});
@@ -49,9 +42,7 @@ export default function Profile() {
   useEffect(() => {
     // Only fetch data if solvedProblems is empty or undefined
     if (solvedProblems.length === 0) {
-      setLoading(true);
       getSolvedProblemByUser().finally(() => {
-        setLoading(false);
       });
     }
 
@@ -132,9 +123,7 @@ export default function Profile() {
   useEffect(() => {
     // Only fetch data if solvedBY is empty or undefined
     if (solvedBY.length === 0) {
-      setLoading(true);
       getAllSolvedByUser().finally(() => {
-        setLoading(false);
       });
     }
   }, []);
@@ -202,7 +191,7 @@ useEffect(() => {
   if (!solvedUserList) return;
 
   const leaderboardArray = Object.entries(solvedUserList)
-    .map(([userId, data] : [string, any]) => ({
+    .map(([_, data] : [string, any]) => ({
       name: data.name,
       score: data.EASY + data.MEDIUM + data.HARD,
     }))

@@ -49,7 +49,7 @@ function App() {
             />
             <Route
               path="/problems"
-              element={authUser ? <Problems /> : <Navigate to="/login" />}
+              element={authUser ? <Problems /> : <Navigate to="/problems" />}
             />
             <Route
               path="/contests"

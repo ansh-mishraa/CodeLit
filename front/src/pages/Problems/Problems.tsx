@@ -1,13 +1,11 @@
-import  { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useProblemStore } from "../../store/useProblemStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import {useActions} from "@/store/useAction"
-
+import { useActions } from "@/store/useAction";
 import { Pencil, Trash2, Plus, Bookmark, CheckCircle } from "lucide-react";
-
 import {
   Select,
   SelectContent,
@@ -30,7 +28,6 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { ModeToggle } from "@/components/mode-toggle";
 
-
 const Problems = () => {
   const { authUser } = useAuthStore();
   const [playlistName, setPlaylistName] = useState("");
@@ -39,21 +36,25 @@ const Problems = () => {
   const [difficulty, setDifficulty] = useState("ALL");
   const [tag, setTag] = useState("ALL");
   const [currentPage, setCurrentPage] = useState(1);
-  
-  
   const [selectedPlaylist, setSelectedPlaylist] = useState("");
-  
-  const { createPlaylist, playlists, addProblemToPlaylist, getAllPlaylists} = usePlaylistStore();
-  const { getAllProblems, problems = [],} = useProblemStore();
-  const {onDeleteProblem} = useActions();
-  
-  const itemsPerPage = 5;
-  
+  const [problemSolutions, setProblemSolutions] = useState<{ [key: string]: string }>({}); // Store problem solutions here
 
+  const { createPlaylist, playlists, addProblemToPlaylist, getAllPlaylists } = usePlaylistStore();
+  const { getAllProblems, problems = [] } = useProblemStore();
+  const { onDeleteProblem } = useActions();
+
+  const itemsPerPage = 5;
 
   useEffect(() => {
     getAllProblems();
     getAllPlaylists();
+    // Fetch problem solutions (example, replace with your actual logic)
+    setProblemSolutions({
+      // Example problem solutions
+      "1": "function solveProblem() { return 42; }",
+      "2": "function solveProblem() { return 'Hello World'; }",
+      // Add solutions for other problems...
+    });
   }, [getAllProblems, onDeleteProblem, getAllPlaylists]);
 
   const uniqueTags = useMemo(() => {
@@ -88,9 +89,13 @@ const Problems = () => {
     setPlaylistDescription("");
   };
 
-    const handleDelete = async (id:any) => {
+  const handleDelete = async (id: any) => {
     await onDeleteProblem(id);
     await getAllProblems();
+  };
+
+  const loadCode = (problemId: string) => {
+    alert(`Loading code for problem ID: ${problemId}\n${problemSolutions[problemId]}`);
   };
 
   return (
@@ -141,7 +146,6 @@ const Problems = () => {
           </DialogContent>
         </Dialog>
       </div>
-<ModeToggle />
       {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6 justify-end ">
         <Input
@@ -195,6 +199,7 @@ const Problems = () => {
                 const isSolved = problem.solvedBy?.some(
                   (u: any) => u.userId === authUser?.id
                 );
+                const hasSolution = problemSolutions[problem.id];
 
                 return (
                   <tr
@@ -214,7 +219,6 @@ const Problems = () => {
                         {problem.title.length > 50
                           ? `${problem.title.slice(0, 50)}...`
                           : problem.title}
-                      {problem.title}
                       </Link>
                     </td>
                     <td className="px-4 py-3">
@@ -279,72 +283,81 @@ const Problems = () => {
                       <div className="flex gap-2 items-center flex-wrap">
                         {authUser?.role === "ADMIN" && (
                           <>
-                          <Link to={`/update-problem/${problem.id}`}>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="text-yellow-500"
-                            >
-                              <Pencil size={16} />
-                            </Button>
+                            <Link to={`/update-problem/${problem.id}`}>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="text-yellow-500"
+                              >
+                                <Pencil size={16} />
+                              </Button>
                             </Link>
                             <Button
                               variant="ghost"
                               size="icon"
                               className="text-red-500"
-                              onClick={()=>handleDelete(problem.id)}
+                              onClick={() => handleDelete(problem.id)}
                             >
                               <Trash2 size={16} />
                             </Button>
                           </>
                         )}
                         <Dialog>
-          <DialogTrigger>
-           <Button
-                          variant="outline"
-                          size="sm"
-                          className="text-xs flex items-center gap-1 px-2 py-1"
-                        >
-                          <Bookmark size={16} />
-                        </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add Problem To Playlist</DialogTitle>
-              <DialogDescription>
-                <p>Select a playlist to add this problem.</p>
-              </DialogDescription>
-              <Label className="mt-5">Playlist Name</Label>
-               <select
-              className="select select-bordered w-full"
-              value={selectedPlaylist}
-              onChange={(e) => setSelectedPlaylist(e.target.value)}
-            >
-              <option value="">Select a playlist</option>
-              {playlists.map((playlist) => (
-                
-                <option key={playlist.id} value={playlist.id}>
-                  {playlist.name}
-                </option>
-              ))}
-            </select>
-            </DialogHeader>
-            <DialogFooter>
-              <DialogClose asChild>
-                <div className="flex w-full">
-                  <Button
-                    className="bg-cyan-600 text-white hover:bg-cyan-700 justify-center cursor-pointer"
-                    onClick={() => addProblemToPlaylist(selectedPlaylist, [problem.id])}
-                  >
-                    Add To Playlist
-                  </Button>
-                </div>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+                          <DialogTrigger>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="text-xs flex items-center gap-1 px-2 py-1"
+                            >
+                              <Bookmark size={16} />
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle>Add Problem To Playlist</DialogTitle>
+                              <DialogDescription>
+                                <p>Select a playlist to add this problem.</p>
+                              </DialogDescription>
+                              <Label className="mt-5">Playlist Name</Label>
+                              <select
+                                className="select select-bordered w-full"
+                                value={selectedPlaylist}
+                                onChange={(e) => setSelectedPlaylist(e.target.value)}
+                              >
+                                <option value="">Select a playlist</option>
+                                {playlists.map((playlist) => (
+                                  <option key={playlist.id} value={playlist.id}>
+                                    {playlist.name}
+                                  </option>
+                                ))}
+                              </select>
+                            </DialogHeader>
+                            <DialogFooter>
+                              <DialogClose asChild>
+                                <div className="flex w-full">
+                                  <Button
+                                    className="bg-cyan-600 text-white hover:bg-cyan-700 justify-center cursor-pointer"
+                                    onClick={() => addProblemToPlaylist(selectedPlaylist, [problem.id])}
+                                  >
+                                    Add To Playlist
+                                  </Button>
+                                </div>
+                              </DialogClose>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
 
-                        
+                        {/* Show the "Load Code" button if the problem has a solution */}
+                        {hasSolution && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-xs"
+                            onClick={() => loadCode(problem.id)}
+                          >
+                            Load Code
+                          </Button>
+                        )}
                       </div>
                     </td>
                   </tr>

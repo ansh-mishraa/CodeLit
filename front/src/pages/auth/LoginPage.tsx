@@ -143,11 +143,46 @@ export function LoginPage() {
                     </>)  :
                     <span>Sign in</span>
                 }
+                
                 </Button>
+                <div className="flex flex-col gap-2 pt-2">
+  <Button
+    type="button"
+    variant="outline"
+    className="w-full"
+    onClick={async () => {
+      try {
+        await login({ email: "user@gmail.com", password: "user@123" });
+        toast.success("Logged in as Guest User");
+      } catch (error) {
+        toast.error("Guest User login failed");
+      }
+    }}
+  >
+    Continue as Guest User
+  </Button>
+
+  <Button
+    type="button"
+    variant="outline"
+    className="w-full"
+    onClick={async () => {
+      try {
+        await login({ email: "admin@admin.com", password: "admin@123" });
+        toast.success("Logged in as Guest Admin");
+      } catch (error) {
+        toast.error("Guest Admin login failed");
+      }
+    }}
+  >
+    Continue as Guest Admin
+  </Button>
+</div>
+
               </form>
             </Form>
 
-            <div className="my-6 text-center relative">
+            {/* <div className="my-6 text-center relative">
               <hr className="w-full border-t border-gray-300 dark:border-gray-700 absolute top-1/2 transform -translate-y-1/2" />
               <span className="relative z-10 bg-white dark:bg-[#121212] px-2 text-gray-400">
                 Or continue with
@@ -161,7 +196,7 @@ export function LoginPage() {
                 className="w-5 h-5 mr-2"
               />
               Sign in with Google
-            </button>
+            </button> */}
 
             <p className="mt-6 text-xs text-gray-500 dark:text-gray-400">
               By signing in or creating an account, you agree to our{" "}

@@ -7,15 +7,19 @@ import { Toaster } from "@/components/ui/sonner";
 import { useAuthStore } from "./store/useAuthStore";
 import HomePage from "./pages/Landing/HomePage";
 import { useEffect } from "react";
-import {  Loader2 } from "lucide-react";
+import { Home, Loader2 } from "lucide-react";
 import logo from "@/assets/dark.svg";
 import Layout from "./pages/Layout/Layout";
 import Problems from "./pages/Problems/Problems";
 import Contests from "./pages/Contests/Contests";
 import Profile from "./pages/Profile/Profile";
 import AddProblem from "./pages/Problems/AddProblem";
-
 import ProblemPage from "./pages/Problems/ProblemPage";
+
+// Helper Component for Protected Routes
+const ProtectedRoute = ({ element, authUser, redirectTo = "/login" }: any) => {
+  return authUser ? element : <Navigate to={redirectTo} />;
+};
 
 function App() {
   const { authUser, isCheckingAuth, checkAuth } = useAuthStore();
@@ -27,15 +31,14 @@ function App() {
   if (isCheckingAuth && !authUser) {
     return (
       <div className="flex flex-col justify-center items-center h-screen">
-        <img className="animate-pulse" src={logo} width={90}></img>
+        <img className="animate-pulse" src={logo} width={90} />
         <div className="mt-3 text-2xl animate-pulse text-orange-300 font-bold">
           CodeLit
         </div>
-        <Loader2 className="animate-spin mt-4 text-2xl  text-orange-300" />
+        <Loader2 className="animate-spin mt-4 text-2xl text-orange-300" />
       </div>
     );
   }
-  console.log(authUser);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -49,48 +52,40 @@ function App() {
             />
             <Route
               path="/problems"
-              element={authUser ? <Problems /> : <Navigate to="/problems" />}
+              element={<ProtectedRoute element={<Problems />} authUser={authUser} />}
             />
             <Route
               path="/contests"
-              element={authUser ? <Contests /> : <Navigate to="/login" />}
+              element={<ProtectedRoute element={<Contests />} authUser={authUser} />}
             />
-            {/* <Route path="/about" element={<div>About</div>} />
-            <Route path="/contact" element={<div>Contact</div>} /> */}
             <Route
               path="/profile"
-              element={authUser ? <Profile /> : <Navigate to="/login" />}
+              element={<ProtectedRoute element={<Profile />} authUser={authUser} />}
             />
             {authUser?.role === "ADMIN" && (
               <Route
                 path="/add-problem"
-                element={authUser ? <AddProblem /> : <Navigate to="/login" />}
+                element={<ProtectedRoute element={<AddProblem />} authUser={authUser} />}
               />
             )}
-            
-           
           </Route>
           {/* Auth */}
-
- <Route
-              path="/problem/:id"
-              element={authUser ? <ProblemPage /> : <Navigate to="/login" />}
-            />
+          <Route
+            path="/problem/:id"
+            element={authUser ? <ProblemPage /> : <LoginPage />}
+          />
           <Route
             path="/login"
-            element={!authUser ? <LoginPage /> : <Navigate to="/" />}
+            element={!authUser ? <LoginPage /> : <HomePage />}
           />
           <Route
             path="/register"
-            element={!authUser ? <SignupPage /> : <Navigate to="/" />}
+            element={!authUser ? <SignupPage /> : <HomePage />}
           />
           <Route
             path="/verify-email"
-            element={!authUser ? <SignupPage /> : <EmailVerify />}
+            element={!authUser ? <EmailVerify /> : <HomePage />}
           />
-
-         
-          {/* <Route path="/forgot-password" element={}/> */}
         </Routes>
       </BrowserRouter>
       <Toaster />

@@ -153,21 +153,21 @@ export function SignupPage() {
               </form>
             </Form>
 
-            <div className="my-6 text-center relative">
+            {/* <div className="my-6 text-center relative">
               <hr className="w-full border-t border-gray-300 dark:border-gray-700 absolute top-1/2 transform -translate-y-1/2" />
               <span className="relative z-10 bg-white dark:bg-[#121212] px-2 text-gray-400">
                 Or continue with
               </span>
-            </div>
+            </div> */}
 
-            <button className="w-full bg-white text-black flex items-center justify-center p-3 rounded shadow">
+            {/* <button className="w-full bg-white text-black flex items-center justify-center p-3 rounded shadow">
               <img
                 src="https://www.svgrepo.com/show/355037/google.svg"
                 alt="Google"
                 className="w-5 h-5 mr-2"
               />
               Sign up with Google
-            </button>
+            </button> */}
 
             <p className="mt-6 text-xs text-gray-500 dark:text-gray-400">
               By signing up, you agree to our{" "}

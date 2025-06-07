@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import logo from "@/assets/dark.svg";
 import Editor from "@monaco-editor/react";
 import {
@@ -13,13 +13,11 @@ import {
   Lightbulb,
   Bookmark,
   Share2,
-  Clock,
+  
   ChevronRight,
-  BookOpen,
+  
   Terminal,
   Code2,
-  Users,
-  ThumbsUp,
   Home,
   Loader2,
   Tags,
@@ -42,7 +40,7 @@ import { useProblemStore } from "@/store/useProblemStore";
 import { getLanguageId } from "@/lib/lang";
 import { useExecutionStore } from "@/store/useExecutionStore";
 import { useSubmissionStore } from "@/store/useSubmissionStore";
-import Submission from "./components/Submission";
+
 import SubmissionsList from "./components/SubmissionList";
 import { ModeToggle } from "@/components/mode-toggle";
 import DiscussionList from "./components/DiscussionList";
@@ -62,7 +60,7 @@ const ProblemPage = () => {
     isLoading: isSubmissionsLoading,
     getSubmissionForProblem,
     getSubmissionCountForProblem,
-    submissionCount,
+    
   } = useSubmissionStore();
   const [activeMainTab, setActiveMainTab] = useState("testcases");
   const [activeCaseTab, setActiveCaseTab] = useState(0);
@@ -182,7 +180,7 @@ const ProblemPage = () => {
                 </h3>
 
                 {Object.entries(problem.examples).map(
-                  ([lang, example], idx) => {
+                  ([lang, example], _) => {
                     const ex = example as {
                       input: string;
                       output: string;
@@ -556,7 +554,7 @@ const ProblemPage = () => {
                       <div className="flex flex-col gap-4">
                         {/* Case Tabs */}
                         <div className="flex gap-2 text-xs font-mono">
-                          {testcases.map((result: any, index: any) => (
+                          {testcases.map((_: any, index: any) => (
                             <button
                               key={index}
                               className={`px-3 py-1 rounded-md border text-sm transition-all duration-200

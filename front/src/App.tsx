@@ -7,15 +7,14 @@ import { Toaster } from "@/components/ui/sonner";
 import { useAuthStore } from "./store/useAuthStore";
 import HomePage from "./pages/Landing/HomePage";
 import { useEffect } from "react";
-import { Loader, Loader2 } from "lucide-react";
+import {  Loader2 } from "lucide-react";
 import logo from "@/assets/dark.svg";
 import Layout from "./pages/Layout/Layout";
 import Problems from "./pages/Problems/Problems";
 import Contests from "./pages/Contests/Contests";
 import Profile from "./pages/Profile/Profile";
 import AddProblem from "./pages/Problems/AddProblem";
-import UpdateProblemForm from "./pages/Problems/components/UpdateProblemForm";
-import CreateProblemForm from "./pages/Problems/components/CreateProblemForm";
+
 import ProblemPage from "./pages/Problems/ProblemPage";
 
 function App() {

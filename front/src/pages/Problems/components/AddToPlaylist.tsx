@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { X, Plus, Loader } from 'lucide-react';
 import { usePlaylistStore } from '@/store/usePlaylistStore';
 

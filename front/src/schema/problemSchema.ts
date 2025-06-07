@@ -1,6 +1,5 @@
 
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
  export const problemSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),

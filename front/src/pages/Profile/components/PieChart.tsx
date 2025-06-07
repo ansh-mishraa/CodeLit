@@ -4,19 +4,14 @@ import { useDrawingArea } from "@mui/x-charts/hooks";
 import { styled } from "@mui/material/styles";
 
 
-const size = {
-  width: 200,
-  height: 200,
-};
 
-const StyledText = styled("text")(({ theme }) => ({
+
+const StyledText = styled("text")(() => ({
   fill: "white",
   textAnchor: "middle",
   dominantBaseline: "central",
   fontSize: 40,
   fontWeight: 500,
-
-  
 }));
 
 function PieCenterLabel({ children }: { children: React.ReactNode }) {

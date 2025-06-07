@@ -1,8 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { ModeToggle } from "@/components/mode-toggle";
 import logo from "@/assets/dark.svg";
-import { Button } from "@/components/ui/button";
 import { User, Code, LogOut } from "lucide-react";
 import {
   DropdownMenu,

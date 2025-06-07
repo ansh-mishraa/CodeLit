@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +12,6 @@ import {
   CheckCircle2,
   Download,
   Loader2,
-  DotIcon,
 } from "lucide-react";
 import Editor from "@monaco-editor/react";
 import { useState } from "react";

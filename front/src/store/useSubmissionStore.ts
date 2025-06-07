@@ -29,7 +29,7 @@ interface SubmissionStore {
 }
 
 // ✅ Correct Zustand usage
-export const useSubmissionStore = create<SubmissionStore>((set, get) => ({
+export const useSubmissionStore = create<SubmissionStore>((set,_) => ({
   isLoading: false,
   submissions: [],
   submission: null,

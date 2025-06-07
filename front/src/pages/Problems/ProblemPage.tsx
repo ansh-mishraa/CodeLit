@@ -327,7 +327,16 @@ const ProblemPage = () => {
             >
               <Bookmark className="w-5 h-5" />
             </button>
-            <button className="btn btn-ghost btn-circle" aria-label="Share">
+            <button className="btn btn-ghost btn-circle" aria-label="Share"
+              onClick={() => navigator.clipboard.writeText(window.location.href)
+                .then(() => {
+                  toast.success("Link copied to clipboard!");
+                })
+                .catch(() => {
+                  toast.error("Failed to copy link to clipboard.");
+                })
+              }
+            >
               <Share2 className="w-5 h-5" />
             </button>
             <DropdownMenu>

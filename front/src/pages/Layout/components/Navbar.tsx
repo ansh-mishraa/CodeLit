@@ -60,12 +60,7 @@ const Navbar = () => {
             >
               About
             </Link>
-            <Link
-              to="/contact"
-              className="text-gray-700 hover:text-orange-500 dark:text-gray-200 dark:hover:text-orange-400 transition"
-            >
-              Contact Us
-            </Link>
+           
           </nav>
 
           {/* Right Actions */}

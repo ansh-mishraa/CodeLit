@@ -12,9 +12,11 @@ import logo from "@/assets/dark.svg";
 import Layout from "./pages/Layout/Layout";
 import Problems from "./pages/Problems/Problems";
 import Contests from "./pages/Contests/Contests";
+import CommingSoon from "./pages/CommingSoon";
 import Profile from "./pages/Profile/Profile";
 import AddProblem from "./pages/Problems/AddProblem";
 import ProblemPage from "./pages/Problems/ProblemPage";
+import AboutUs from "./pages/AboutUs";
 
 // Helper Component for Protected Routes
 const ProtectedRoute = ({ element, authUser, redirectTo = "/login" }: any) => {
@@ -56,17 +58,22 @@ function App() {
             />
             <Route
               path="/contests"
-              element={<ProtectedRoute element={<Contests />} authUser={authUser} />}
+              element={<ProtectedRoute element={<CommingSoon />} authUser={authUser} />}
             />
             <Route
               path="/profile"
               element={<ProtectedRoute element={<Profile />} authUser={authUser} />}
             />
+            <Route
+            path="/about"
+            element={<ProtectedRoute element={<AboutUs />} authUser={authUser} />}
+          />
             {authUser?.role === "ADMIN" && (
               <Route
                 path="/add-problem"
                 element={<ProtectedRoute element={<AddProblem />} authUser={authUser} />}
               />
+              
             )}
           </Route>
           {/* Auth */}
@@ -86,6 +93,7 @@ function App() {
             path="/verify-email"
             element={!authUser ? <EmailVerify /> : <HomePage />}
           />
+          
         </Routes>
       </BrowserRouter>
       <Toaster />

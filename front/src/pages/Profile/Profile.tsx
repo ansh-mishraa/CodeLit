@@ -7,6 +7,7 @@ import Pie from "./components/PieChart";
 import ActivityHeatmapCard from "./components/HeatMap";
 import ProblemCardList from "./components/SolvedProblem";
 import { useProblemStore } from "@/store/useProblemStore";
+import { useAuthStore } from "@/store/useAuthStore";
 
 
 
@@ -38,6 +39,8 @@ export default function Profile() {
   const [leaderboardData, setLeaderboardData] = useState<
   { name: string; score: number; rank: number }[]
 >([]);
+const {authUser} = useAuthStore();
+console.log(authUser);
 
   useEffect(() => {
     // Only fetch data if solvedProblems is empty or undefined
@@ -70,7 +73,7 @@ export default function Profile() {
     setMediumCount(medium);
     setHardCount(hard);
     setLitCoin(easy * 1 + medium * 3 + hard * 5);
-  }, [solvedProblems]); // The effect will now only run when `solvedProblems` changes.
+  }, []); // The effect will now only run when `solvedProblems` changes.
 
   console.log(easyCount, mediumCount, hardCount, solvedProblems);
 
@@ -204,7 +207,7 @@ useEffect(() => {
 
   setLeaderboardData(leaderboardArray);
 }, [solvedUserList]);
-console.log(leaderboardData);
+console.log(leaderboardData,"Leaderboard");
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white p-6 pt-20">
@@ -236,11 +239,11 @@ console.log(leaderboardData);
 
               <div className="max-h-120 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-zinc-900 rounded-lg">
                 <ul className="space-y-2 text-sm">
-                  {leaderboardData.map((user) => (
+                  {leaderboardData.map((id:any,user:any) => (
                     <li
                       key={user.rank}
                       className={`flex justify-between items-center p-2 rounded-lg transition duration-200 hover:bg-zinc-800 ${
-                        user.name === currentUser.name
+                        id === authUser.id
                           ? "bg-orange-500/20"
                           : "bg-zinc-900"
                       }`}
@@ -258,17 +261,17 @@ console.log(leaderboardData);
                   ))}
 
                   {!leaderboardData.find(
-                    (u) => u.name === currentUser.name
+                    (id:any,u:any) =>  id=== authUser.id
                   ) && (
                     <li className="flex justify-between items-center p-2 rounded-lg bg-orange-500/20">
                       <span className="font-bold text-zinc-400">
-                        #{currentUser.rank}
+                        #{authUser.rank}
                       </span>
                       <span className="text-white font-medium">
-                        {currentUser.name}
+                        {authUser.name}
                       </span>
                       <span className="text-orange-400 font-semibold">
-                        {currentUser.score}
+                        {authUser.score}
                       </span>
                     </li>
                   )}

@@ -39,7 +39,7 @@ const Problems = () => {
   const [problemSolutions, setProblemSolutions] = useState<{ [key: string]: string }>({}); // Store problem solutions here
 
   const { createPlaylist, playlists, addProblemToPlaylist, getAllPlaylists } = usePlaylistStore();
-  const { getAllProblems, problems = [] } = useProblemStore();
+  const { getAllProblems, problems = [], getSolvedProblemByUser, solvedProblems } = useProblemStore();
   const { onDeleteProblem } = useActions();
 
   const itemsPerPage = 5;
@@ -47,6 +47,7 @@ const Problems = () => {
   useEffect(() => {
     getAllProblems();
     getAllPlaylists();
+    getSolvedProblemByUser();
     // Fetch problem solutions (example, replace with your actual logic)
     setProblemSolutions({
       // Example problem solutions
@@ -54,7 +55,8 @@ const Problems = () => {
       "2": "function solveProblem() { return 'Hello World'; }",
       // Add solutions for other problems...
     });
-  }, [getAllProblems, onDeleteProblem, getAllPlaylists]);
+  }, [getAllProblems, onDeleteProblem, getAllPlaylists, getSolvedProblemByUser]);
+console.log(solvedProblems,"Solved By User");
 
   const uniqueTags = useMemo(() => {
     const tags = new Set();
@@ -195,9 +197,7 @@ const Problems = () => {
           <tbody className="">
             {paginatedProblems.length > 0 ? (
               paginatedProblems.map((problem) => {
-                const isSolved = problem.solvedBy?.some(
-                  (u: any) => u.userId === authUser?.id
-                );
+                const isSolved = solvedProblems.some((solved) => solved.id === problem.id);
                 const hasSolution = problemSolutions[problem.id];
 
                 return (

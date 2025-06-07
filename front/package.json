@@ -33,6 +33,7 @@
     "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.16.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.511.0",
     "matter-js": "^0.20.0",

@@ -11,7 +11,6 @@ import { useAuthStore } from "@/store/useAuthStore";
 
 
 
-const currentUser = { name: "Ansh Mishra", score: 107, rank: 21_764 };
 
 export default function Profile() {
   const normalizeDateFormat = (data: any[]) => {
@@ -261,7 +260,7 @@ console.log(leaderboardData,"Leaderboard");
                   ))}
 
                   {!leaderboardData.find(
-                    (id:any,u:any) =>  id=== authUser.id
+                    (id:any) =>  id=== authUser.id
                   ) && (
                     <li className="flex justify-between items-center p-2 rounded-lg bg-orange-500/20">
                       <span className="font-bold text-zinc-400">

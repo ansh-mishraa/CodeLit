@@ -248,7 +248,7 @@ const ProblemPage = () => {
               tags={problem.tags.map(
                 (tag: any) => tag.charAt(0).toUpperCase() + tag.slice(1)
               )}
-              companies={["Amazon", "Google", "Adobe"]}
+              companies={[]}
             />
           </div>
         );

@@ -160,24 +160,7 @@ export function LoginPage() {
                     Continue as Guest User
                   </Button>
 
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full"
-                    onClick={async () => {
-                      try {
-                        await login({
-                          email: "admin@admin.com",
-                          password: "admin@123",
-                        });
-                        toast.success("Logged in as Guest Admin");
-                      } catch (error) {
-                        toast.error("Guest Admin login failed");
-                      }
-                    }}
-                  >
-                    Continue as Guest Admin
-                  </Button>
+                 
                 </div>
               </form>
             </Form>

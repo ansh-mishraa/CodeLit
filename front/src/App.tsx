@@ -11,7 +11,6 @@ import {  Loader2 } from "lucide-react";
 import logo from "@/assets/dark.svg";
 import Layout from "./pages/Layout/Layout";
 import Problems from "./pages/Problems/Problems";
-import Contests from "./pages/Contests/Contests";
 import CommingSoon from "./pages/CommingSoon";
 import Profile from "./pages/Profile/Profile";
 import AddProblem from "./pages/Problems/AddProblem";

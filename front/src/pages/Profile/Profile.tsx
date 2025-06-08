@@ -1,7 +1,7 @@
 import  {  useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Trophy,  Flame,  } from "lucide-react";
+import { Trophy,  Flame, CoinsIcon,  } from "lucide-react";
 
 import Pie from "./components/PieChart";
 import ActivityHeatmapCard from "./components/HeatMap";
@@ -220,12 +220,12 @@ console.log(leaderboardData,"Leaderboard");
               </div>
               <h2 className="text-xl font-semibold mt-4">Ansh Mishra</h2>
               <p className="text-sm text-zinc-400">@ansh.codes</p>
-              <Button
+              {/* <Button
                 variant="default"
                 className="mt-6 w-full text-orange-400 bg-zinc-800 hover:bg-orange-500 hover:text-white transition duration-200"
               >
                 Share Codelit Card
-              </Button>
+              </Button> */}
             </CardContent>
           </Card>
 
@@ -238,7 +238,7 @@ console.log(leaderboardData,"Leaderboard");
 
               <div className="max-h-120 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-zinc-900 rounded-lg">
                 <ul className="space-y-2 text-sm">
-                  {leaderboardData.map((id:any,user:any) => (
+                  {/* {leaderboardData.map((id:any,user:any) => (
                     <li
                       key={user.rank}
                       className={`flex justify-between items-center p-2 rounded-lg transition duration-200 hover:bg-zinc-800 ${
@@ -257,20 +257,20 @@ console.log(leaderboardData,"Leaderboard");
                         {user.score}
                       </span>
                     </li>
-                  ))}
+                  ))} */}
 
                   {!leaderboardData.find(
                     (id:any) =>  id=== authUser.id
                   ) && (
                     <li className="flex justify-between items-center p-2 rounded-lg bg-orange-500/20">
                       <span className="font-bold text-zinc-400">
-                        #{authUser.rank}
+                        #1
                       </span>
                       <span className="text-white font-medium">
                         {authUser.name}
                       </span>
                       <span className="text-orange-400 font-semibold">
-                        {authUser.score}
+                        {litCoin}
                       </span>
                     </li>
                   )}
@@ -319,15 +319,15 @@ console.log(leaderboardData,"Leaderboard");
               <CardContent className="flex flex-col items-center justify-center ">
                 {/* Trophy Icon and Ranking */}
                 <div className="flex items-center space-x-2 ">
-                  <Trophy className="text-yellow-500 w-10 h-10" />{" "}
+                  <CoinsIcon className="text-yellow-500 w-10 h-10" />{" "}
                   {/* Gold Trophy Icon */}
                 </div>
-                <p className="text-lg text-zinc-400 mb-4">Ranking</p>
+                <p className="text-lg text-zinc-400 mb-4">Coins</p>
 
                 {/* Rank Number with Slash and Total Users */}
                 <p className="text-5xl font-bold text-white mt-2">
                   {litCoin}
-                  <span className="text-sm text-zinc-500">/{40}</span>
+                  <span className="text-sm text-zinc-500"></span>
                 </p>
 
                 {/* Description or Info */}

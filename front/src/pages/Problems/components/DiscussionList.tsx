@@ -1,5 +1,5 @@
 import { ThumbsUp, ThumbsDown } from "lucide-react";
-import { useState } from "react";
+// import { useState } from "react";
 
 type Discussion = {
   name: string;
@@ -32,19 +32,19 @@ const timeSince = (dateString: string) => {
 const DiscussionList = ({
   discussions,
   isLoading,
-  onPost,
+
 }: {
   discussions: Discussion[];
   isLoading: boolean;
   onPost?: (message: string) => void;
 }) => {
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
 
-  const handlePost = () => {
-    if (!message.trim()) return;
-    onPost?.(message.trim());
-    setMessage("");
-  };
+  // const handlePost = () => {
+  //   if (!message.trim()) return;
+  //   onPost?.(message.trim());
+  //   setMessage("");
+  // };
 
   return (
     <div className="space-y-6">

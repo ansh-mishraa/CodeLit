@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Github, Mail, Linkedin } from 'lucide-react';
+import { Github,  Linkedin, Twitter } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -51,13 +51,13 @@ const Footer = () => {
 
         {/* Social Icons */}
         <div className="flex justify-center mt-10 space-x-6 text-gray-600 dark:text-gray-400">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition">
+          <a href="https://github.com/Ansh-Mishra04" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition">
             <Github />
           </a>
-          <a href="mailto:support@codelit.dev" className="hover:text-orange-400 transition">
-            <Mail />
+          <a href="https://linkedin.com/in/ansh-mishraa" className="hover:text-orange-400 transition">
+            <Twitter />
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition">
+          <a href="https://x.com/ansh_mishraa04" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition">
             <Linkedin />
           </a>
         </div>

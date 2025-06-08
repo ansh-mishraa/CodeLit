@@ -49,7 +49,7 @@ const DiscussionList = ({
   return (
     <div className="space-y-6">
       {/* Input Box */}
-      <div className="bg-base-200 border border-base-300 p-5 rounded-2xl shadow-sm">
+      {/* <div className="bg-base-200 border border-base-300 p-5 rounded-2xl shadow-sm">
         <div className="flex flex-col md:flex-row gap-3 items-start md:items-center">
           <input
             type="text"
@@ -65,7 +65,7 @@ const DiscussionList = ({
             🚀 Post
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Loading */}
       {isLoading && (
@@ -77,7 +77,7 @@ const DiscussionList = ({
       {/* Empty State */}
       {!isLoading && discussions.length === 0 && (
         <div className="border border-dashed border-base-300 p-6 rounded-xl text-center text-sm text-base-content/70">
-          💬 No discussions yet. Be the first to post something!
+          💬 No discussions yet. Will add after exams😅!
         </div>
       )}
 

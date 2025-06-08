@@ -263,13 +263,7 @@ const ProblemPage = () => {
         return (
           <DiscussionList
             discussions={[
-              {
-                name: "Test",
-                message: "Test",
-                createdAt: "2023-01-01T00:00:00.000Z",
-                upvotes: 0,
-                downvotes: 0,
-              },
+             
             ]}
             isLoading={false}
           />

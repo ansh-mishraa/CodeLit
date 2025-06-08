@@ -525,12 +525,12 @@ const ProblemPage = () => {
                             <Play className="w-3 h-3" />
                           )}
                           <span className="text-xs">
-                            {isExecuting ? "Running..." : "Run"}
+                            {isExecuting ? "Running..." : "Run & Submit"}
                           </span>
                         </button>
 
                         {/* Submit Solution Button */}
-                        <button
+                        {/* <button
                           className="flex items-center gap-2 px-3 py-2 rounded-lg text-white transition-all ease-in-out duration-300
                        hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 disabled:bg-gray-400 bg-green-500 dark:disabled:bg-gray-600 cursor-pointer"
                           onClick={() => {
@@ -548,7 +548,7 @@ const ProblemPage = () => {
                           <span className="text-xs">
                             {isExecuting ? "Running..." : "Submit"}
                           </span>
-                        </button>
+                        </button> */}
                       </div>
                     </div>
 

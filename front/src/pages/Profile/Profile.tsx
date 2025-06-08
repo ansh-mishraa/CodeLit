@@ -32,6 +32,8 @@ export default function Profile() {
     solvedBY,
     getUserNameById,
   } = useProblemStore();
+  const [streak, setStreak] = useState(1);
+
   const [heatData, setHeatData] = useState([]);
   const normalizedData = normalizeDateFormat(heatData);
   const [solvedUserList, setSolvedUserList] = useState({});
@@ -66,6 +68,7 @@ console.log(authUser);
         hard += 1;
       }
     });
+    setStreak(solvedProblems.length);
 
     // Set the counts to state
     setEasyCount(easy);
@@ -350,14 +353,14 @@ console.log(leaderboardData,"Leaderboard");
                   <div className="text-center bg-zinc-800 p-6 rounded-xl w-32">
                     <Flame className="text-orange-500 mx-auto mb-2 text-4xl" />
                     <p className="text-sm text-zinc-500">Max</p>
-                    <p className="font-extrabold text-3xl text-white">14</p>
+                    <p className="font-extrabold text-3xl text-white">{streak}</p>
                   </div>
 
                   {/* Current Streak */}
                   <div className="text-center bg-zinc-800 p-6 rounded-xl w-32">
                     <Flame className="text-zinc-500 mx-auto mb-2 text-4xl" />
                     <p className="text-sm text-zinc-500">Current</p>
-                    <p className="font-extrabold text-3xl text-white">0</p>
+                    <p className="font-extrabold text-3xl text-white">{streak}</p>
                   </div>
                 </div>
 

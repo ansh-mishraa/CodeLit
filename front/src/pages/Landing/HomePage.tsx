@@ -105,7 +105,7 @@ const Home = () => {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-24 px-6 text-center bg-white dark:bg-[#1a1a1a]">
+      {/* <section className="py-24 px-6 text-center bg-white dark:bg-[#1a1a1a]">
         <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-12">What Our Users Say</h2>
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="bg-orange-50 dark:bg-[#2a2a2a] p-6 rounded-xl shadow-md">
@@ -117,7 +117,7 @@ const Home = () => {
             <p className="mt-3 font-semibold text-gray-800 dark:text-white">— Riya S., 3rd Year IT</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA BOTTOM */}
       <section className="py-24 px-6 text-center bg-gradient-to-b from-orange-100 to-white dark:from-[#0d0d0d] dark:to-[#121212]">

@@ -29,9 +29,7 @@ const loginSchema = z.object({
 
 export function LoginPage() {
   const [showPassword, setShowPassword] = useState(true);
-  const {login, isLoggingIn} = useAuthStore();
-
-
+  const { login, isLoggingIn } = useAuthStore();
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -41,18 +39,15 @@ export function LoginPage() {
     },
   });
 
-  const onSubmit=async(data: z.infer<typeof loginSchema>)=> {
+  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     try {
       await login(data);
-      console.log("Login data",data);
-      
+      console.log("Login data", data);
     } catch (error) {
       console.log("Error logging in", error);
       toast.error("Error logging in");
-      
     }
-    
-  }
+  };
 
   return (
     <>
@@ -136,49 +131,54 @@ export function LoginPage() {
                   className="w-full bg-orange-400 hover:bg-orange-500 text-white p-3 rounded font-semibold"
                   disabled={isLoggingIn}
                 >
-                  {isLoggingIn ?
-                    (<>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
-                    <span>Signing in...</span>
-                    </>)  :
+                  {isLoggingIn ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <span>Signing in...</span>
+                    </>
+                  ) : (
                     <span>Sign in</span>
-                }
-                
+                  )}
                 </Button>
                 <div className="flex flex-col gap-2 pt-2">
-  <Button
-    type="button"
-    variant="outline"
-    className="w-full"
-    onClick={async () => {
-      try {
-        await login({ email: "user@gmail.com", password: "user@123" });
-        toast.success("Logged in as Guest User");
-      } catch (error) {
-        toast.error("Guest User login failed");
-      }
-    }}
-  >
-    Continue as Guest User
-  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={async () => {
+                      try {
+                        await login({
+                          email: "user@gmail.com",
+                          password: "user@123",
+                        });
+                        toast.success("Logged in as Guest User");
+                      } catch (error) {
+                        toast.error("Guest User login failed");
+                      }
+                    }}
+                  >
+                    Continue as Guest User
+                  </Button>
 
-  <Button
-    type="button"
-    variant="outline"
-    className="w-full"
-    onClick={async () => {
-      try {
-        await login({ email: "admin@admin.com", password: "admin@123" });
-        toast.success("Logged in as Guest Admin");
-      } catch (error) {
-        toast.error("Guest Admin login failed");
-      }
-    }}
-  >
-    Continue as Guest Admin
-  </Button>
-</div>
-
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={async () => {
+                      try {
+                        await login({
+                          email: "admin@admin.com",
+                          password: "admin@123",
+                        });
+                        toast.success("Logged in as Guest Admin");
+                      } catch (error) {
+                        toast.error("Guest Admin login failed");
+                      }
+                    }}
+                  >
+                    Continue as Guest Admin
+                  </Button>
+                </div>
               </form>
             </Form>
 

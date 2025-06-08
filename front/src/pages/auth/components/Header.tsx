@@ -18,21 +18,19 @@ const Header = () => {
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-6 text-xs font-medium">
-            <Link to="/" className="text-gray-700 hover:text-orange-500 dark:text-gray-200 dark:hover:text-orange-400 transition">
+            <a href="/" className="text-gray-700 hover:text-orange-500 dark:text-gray-200 dark:hover:text-orange-400 transition">
               Home
-            </Link>
-            <Link to="problems" className="text-gray-700 hover:text-orange-500 dark:text-gray-200 dark:hover:text-orange-400 transition">
+            </a>
+            <a href="problems" className="text-gray-700 hover:text-orange-500 dark:text-gray-200 dark:hover:text-orange-400 transition">
               Problems
-            </Link>
-            <Link to="/contests" className="text-gray-700 hover:text-orange-500 dark:text-gray-200 dark:hover:text-orange-400 transition">
+            </a>
+            <a href="/contests" className="text-gray-700 hover:text-orange-500 dark:text-gray-200 dark:hover:text-orange-400 transition">
               Contests
-            </Link>
-            <Link to="/about" className="text-gray-700 hover:text-orange-500 dark:text-gray-200 dark:hover:text-orange-400 transition">
+            </a>
+            <a href="/about" className="text-gray-700 hover:text-orange-500 dark:text-gray-200 dark:hover:text-orange-400 transition">
               About
-            </Link>
-            <Link to="/contact" className="text-gray-700 hover:text-orange-500 dark:text-gray-200 dark:hover:text-orange-400 transition">
-              Contact Us
-            </Link>
+            </a>
+    
             
           </nav>
 

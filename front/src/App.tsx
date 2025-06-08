@@ -49,7 +49,7 @@ function App() {
             {/* Landing */}
             <Route
               index
-              element={authUser ? <HomePage /> : <Navigate to="/login" />}
+              element={<HomePage /> }
             />
             <Route
               path="/problems"

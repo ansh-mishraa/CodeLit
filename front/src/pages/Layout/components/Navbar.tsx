@@ -68,42 +68,54 @@ const Navbar = () => {
             {/* Mode Toggle */}
             <ModeToggle />
 
-            {/* Dummy User Avatar */}
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <div className=" sm:flex items-center gap-2">
-                  <img
-                    src={authUser?.image || "https://avatar.iran.liara.run/public/boy"}
-                    alt="User Avatar"
-                    className="w-8 h-8 rounded-full object-cover border border-orange-400"
-                  />
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="mr-3 mt-3">
-                <DropdownMenuLabel>Hi, {authUser?.name}! 👋</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <Link to={"/profile"}>
-                  <DropdownMenuItem>
-                    <User className="mr-2 h-4 w-4" />
-                    Profile
-                  </DropdownMenuItem>
+            {authUser ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <div className=" sm:flex items-center gap-2">
+                    <img
+                      src={authUser?.image || "https://avatar.iran.liara.run/public/boy"}
+                      alt="User Avatar"
+                      className="w-8 h-8 rounded-full object-cover border border-orange-400"
+                    />
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="mr-3 mt-3">
+                  <DropdownMenuLabel>Hi, {authUser?.name || "User"}! 👋</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <Link to={"/profile"}>
+                    <DropdownMenuItem>
+                      <User className="mr-2 h-4 w-4" />
+                      Profile
+                    </DropdownMenuItem>
+                  </Link>
+                  {authUser?.role === "ADMIN" && (
+                    <Link to={"/add-problem"}>
+                      <DropdownMenuItem>
+                        <Code className="mr-2 h-4 w-4" />
+                        Add Prolem
+                      </DropdownMenuItem>
+                    </Link>
+                  )}
+                  <Link to={"/"}>
+                    <DropdownMenuItem>
+                      <LogoutButton className='flex flex-row'>
+                        <LogOut className="mr-2 h-4 w-4" />
+                        Logout
+                      </LogoutButton>
+                    </DropdownMenuItem>
+                  </Link>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link to="/login" className="text-sm px-3 py-1.5 rounded-md border border-orange-400 text-orange-500 hover:bg-orange-50 dark:hover:bg-[#1a1a1a] transition">
+                  Login
                 </Link>
-                {authUser?.role === "ADMIN" && <Link to={"/add-problem"}>
-                  <DropdownMenuItem>
-                    <Code className="mr-2 h-4 w-4" />
-                    Add Prolem
-                  </DropdownMenuItem>
-                </Link>}
-                <Link to={"/"}>
-                <DropdownMenuItem>
-                <LogoutButton className='flex flex-row'>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Logout
-                </LogoutButton>
-                </DropdownMenuItem>
+                <Link to="/register" className="text-sm px-3 py-1.5 rounded-md bg-orange-500 text-white hover:bg-orange-600 transition">
+                  Sign up
                 </Link>
-              </DropdownMenuContent>
-            </DropdownMenu>
+              </div>
+            )}
 
             {/* Mobile Menu Icon */}
             {/* <div className="block md:hidden">

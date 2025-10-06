@@ -2,7 +2,7 @@ import { getLanguageName, poolBatchResults, submitBatch } from "../utils/judge0.
 import {db} from "../libs/db.js";
 export const executeCode = async (req, res) => {
     const {source_code, language_id, stdin, expected_outputs, problem_id} = req.body;
-    const userId = req.user.id;
+    const userId = req.user?.id;
     try {
         //validate test cases
         if (!Array.isArray(stdin)|| stdin.length === 0 || !Array.isArray(expected_outputs) || expected_outputs.length !== stdin.length) {
@@ -56,6 +56,15 @@ export const executeCode = async (req, res) => {
         console.log("detailedResults", detailedResults);
         
         //saving as an overall submission
+        // If no user, skip DB writes and just return the results
+        if (!userId) {
+            return res.status(200).json({
+                message: "Code executed successfully (guest)",
+                results: detailedResults,
+                status: allPassed ? "Accepted" : "Wrong Answer"
+            });
+        }
+
         const submission = await db.submission.create({
             data:{
                 userId,

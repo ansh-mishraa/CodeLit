@@ -1,11 +1,12 @@
 import express from "express";
-import { isLoggedIn } from "../middlewares/auth.middleware.js";
+import { tryAuthenticate } from "../middlewares/auth.middleware.js";
 import {executeCode } from "../controllers/codeExecution.controllers.js";
 
 const executionRoutes = express.Router();
 
 
-executionRoutes.post("/", isLoggedIn, executeCode);
+// Allow guests to execute but they won't have submissions saved
+executionRoutes.post("/", tryAuthenticate, executeCode);
 
 
 export default executionRoutes;

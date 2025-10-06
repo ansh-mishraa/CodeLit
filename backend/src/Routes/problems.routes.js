@@ -1,13 +1,14 @@
 import express from "express";
-import { isAdmin, isLoggedIn } from "../middlewares/auth.middleware.js";
+import { isAdmin, isLoggedIn, tryAuthenticate } from "../middlewares/auth.middleware.js";
 import { createProblem, deleteProblem, getAllProblems, getProblemById, solvedProblemsByUser, updateProblem, solvedProblemByAllUsers, getUserNameById } from "../controllers/problem.controllers.js";
 
 
 const problemRoutes = express.Router();
 
 problemRoutes.post("/create-problem", isLoggedIn, isAdmin, createProblem);
-problemRoutes.get("/get-problems", isLoggedIn, getAllProblems);
-problemRoutes.get("/get-problem/:id", isLoggedIn, getProblemById);
+// Public read endpoints (auth optional)
+problemRoutes.get("/get-problems", getAllProblems);
+problemRoutes.get("/get-problem/:id", tryAuthenticate, getProblemById);
 problemRoutes.put("/update-problem/:id", isLoggedIn, isAdmin, updateProblem);
 problemRoutes.delete("/delete-problem/:id", isLoggedIn, isAdmin, deleteProblem);
 problemRoutes.get("/get-solved-problems", isLoggedIn, solvedProblemsByUser);

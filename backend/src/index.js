@@ -21,6 +21,8 @@ dotenv.config(
 //     fs.readFileSync(path.resolve('./swagger-output.json'), 'utf8')
 //   );
 const app = express();
+// trust proxy so secure cookies work behind reverse proxies (Render, Vercel, etc.)
+app.set('trust proxy', 1);
 // CORS: allow dev and prod origins
 const allowedOrigins = [
     process.env.FRONTEND_URL,

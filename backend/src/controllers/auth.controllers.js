@@ -211,16 +211,16 @@ export const login = async (req, res) => {
 
   res.cookie("refreshToken",refreshToken,{
       httpOnly:true,
-      sameSite:"strict",
-      secure:process.env.NODE_ENV !== "development",  
-      maxAge: 1000 * 60 * 60 * 24 * 1
+      sameSite:"none",
+      secure:true,  
+      maxAge: 1000 * 60 * 60 * 24 * 7
     });
   
   res.cookie("accessToken",accessToken,{
       httpOnly:true,
-      sameSite:"strict",
-      secure:process.env.NODE_ENV !== "development",  
-      maxAge: 1000 * 60 * 60 * 24 * 7
+      sameSite:"none",
+      secure:true,  
+      maxAge: 1000 * 60 * 60 * 24 * 1
     });
 
     db.user.update({
@@ -265,14 +265,14 @@ export const logout = async (req, res) => {
   })
   res.cookie("refreshToken",null,{
       httpOnly:true,
-      sameSite:"strict",
-      secure:process.env.NODE_ENV !== "development",  
+      sameSite:"none",
+      secure:true,  
       maxAge: 0
     });
   res.cookie("accessToken",null,{
       httpOnly:true,
-      sameSite:"strict",
-      secure:process.env.NODE_ENV !== "development",
+      sameSite:"none",
+      secure:true,
       maxAge: 0
     });
   res.status(200).json({
@@ -311,15 +311,15 @@ export const getProfile = async (req, res) => {
 
       res.cookie("refreshToken",refreshToken,{
           httpOnly:true,
-          sameSite:"strict",
-          secure:process.env.NODE_ENV !== "development",  
+          sameSite:"none",
+          secure:true,  
           maxAge: 1000 * 60 * 60 * 24 * 7
         });
       
       res.cookie("accessToken",accessToken,{
           httpOnly:true,
-          sameSite:"strict",
-          secure:process.env.NODE_ENV !== "development",  
+          sameSite:"none",
+          secure:true,  
           maxAge: 1000 * 60 * 60 * 24 * 1
         });
         console.log("cookies from response");

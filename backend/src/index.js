@@ -21,9 +21,21 @@ dotenv.config(
 //     fs.readFileSync(path.resolve('./swagger-output.json'), 'utf8')
 //   );
 const app = express();
+// CORS: allow dev and prod origins
+const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    process.env.FRONTEND_URL_2,
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+].filter(Boolean);
+
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL,
+        origin: function (origin, callback) {
+            if (!origin) return callback(null, true);
+            if (allowedOrigins.includes(origin)) return callback(null, true);
+            return callback(new Error('Not allowed by CORS'));
+        },
         credentials: true
     })
 )

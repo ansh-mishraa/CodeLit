@@ -1,73 +1,105 @@
 import jwt from 'jsonwebtoken';
 import {db} from "../libs/db.js";
 
-export const isLoggedIn = (req, res, next) => {
+export const isLoggedIn = async (req, res, next) => {
+    const accessToken = req.cookies?.accessToken;
+    const refreshToken = req.cookies?.refreshToken;
 
-    const accessToken = req.cookies.accessToken;
-    const refreshToken = req.cookies.refreshToken;
-
-    if(!accessToken || !refreshToken){
+    if (!accessToken && !refreshToken) {
         return res.status(401).json({
-            success:false,
-            message:"User is not logged in, both tokens are required"
-        })
+            success: false,
+            message: "User is not logged in"
+        });
     }
 
-    if(accessToken){   
-        
-        req.user = jwt.verify(accessToken, process.env.ACCESS_SECRET, (err, decoded) => {
-            if(err){
+    if (accessToken) {
+        return jwt.verify(accessToken, process.env.ACCESS_SECRET, (err, decoded) => {
+            if (err) {
                 return res.status(401).json({
-                    success:false,
-                    message:"User is not logged in",
+                    success: false,
+                    message: "User is not logged in",
                     err
-                })
+                });
             }
-            console.log(decoded, "decoded");
-            
-            
-            req.user = decoded; 
-             next(); 
-        })
-
+            req.user = decoded;
+            return next();
+        });
     }
-    if(!accessToken && refreshToken){
-        console.log("refresh token");
-        req.user = jwt.verify(refreshToken, process.env.REFRESH_SECRET, (err, decoded) => {
-            if(err){
+
+    if (refreshToken) {
+        return jwt.verify(refreshToken, process.env.REFRESH_SECRET, async (err, decoded) => {
+            if (err) {
                 return res.status(401).json({
-                    success:false,
-                    message:"User is not logged in",
+                    success: false,
+                    message: "User is not logged in",
                     err
-                })
+                });
             }
 
-        const user = db.user.findUnique({
-            where:{
-                id:req.user.id
+            try {
+                const user = await db.user.findUnique({
+                    where: { id: decoded.id },
+                    select: { id: true, refreshToken: true }
+                });
+
+                if (!user) {
+                    return res.status(401).json({
+                        success: false,
+                        message: "User is not logged in, user not found"
+                    });
+                }
+
+                if (user.refreshToken !== refreshToken) {
+                    return res.status(401).json({
+                        success: false,
+                        message: "User is not logged in, refresh token does not match"
+                    });
+                }
+
+                req.user = { id: user.id };
+                return next();
+            } catch (dbErr) {
+                return res.status(500).json({ success: false, message: "Internal error" });
             }
         });
-        if(!user){
-            return res.status(401).json({
-                success:false,
-                message:"User is not logged in, user not found"
-            })
-        }
-        if(user.refreshToken !== refreshToken){
-            return res.status(401).json({
-                success:false,
-                message:"User is not logged in, refresh token does not match"
-            })
-        }
-            
-            req.user = decoded;
-            
-             next();
-        })
     }
-    
-    return;
+}
 
+// Soft auth: if tokens are valid, attach req.user; otherwise continue as guest
+export const tryAuthenticate = async (req, res, next) => {
+    try {
+        const accessToken = req.cookies?.accessToken;
+        const refreshToken = req.cookies?.refreshToken;
+
+        if (accessToken) {
+            try {
+                const decoded = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                req.user = { id: decoded.id };
+                return next();
+            } catch (_) {
+                // fall through to refresh token
+            }
+        }
+
+        if (refreshToken) {
+            try {
+                const decoded = jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+                const user = await db.user.findUnique({
+                    where: { id: decoded.id },
+                    select: { id: true, refreshToken: true }
+                });
+                if (user && user.refreshToken === refreshToken) {
+                    req.user = { id: user.id };
+                }
+            } catch (_) {
+                // ignore and proceed as guest
+            }
+        }
+
+        return next();
+    } catch (err) {
+        return next();
+    }
 }
 
 

@@ -281,9 +281,16 @@ export const logout = async (req, res) => {
   })
 };
 export const getProfile = async (req, res) => {
-    // const userId= req.cookies.
-    const userId= req.user.id;
-  
+    const userId = req.user?.id;
+    // If no user, return guest response
+    if (!userId) {
+      return res.status(200).json({
+        success: true,
+        message: "Guest session",
+        user: null
+      });
+    }
+
     try {
       const user = await db.user.findUnique({
           where:{
@@ -301,8 +308,7 @@ export const getProfile = async (req, res) => {
       console.log(user, "user from db");
       
       const {accessToken,refreshToken} = generateAccessRefreshToken(user);
-      
-  
+
       res.cookie("refreshToken",refreshToken,{
           httpOnly:true,
           sameSite:"strict",
@@ -317,8 +323,7 @@ export const getProfile = async (req, res) => {
           maxAge: 1000 * 60 * 60 * 24 * 1
         });
         console.log("cookies from response");
-        
-       
+
       return res.status(200).json({
         success:true,
         message:"User profile fetched successfully",

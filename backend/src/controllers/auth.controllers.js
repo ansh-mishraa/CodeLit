@@ -199,6 +199,11 @@ export const login = async (req, res) => {
       )
     }
 
+  // Optional: enforce verified email before allowing login
+  if (process.env.ENFORCE_VERIFIED === 'true' && !user.isVerified) {
+    return res.status(403).json(new ApiError(403, "Email not verified"));
+  }
+
   const isMatch = await bcrypt.compare(password,user.password);
 
   if(!isMatch){
@@ -360,4 +365,47 @@ export const check = async (req , res)=>{
             error:"Error checking user"
         })
     }
+}
+
+// Rotate access token using valid refresh token
+export const refresh = async (req, res) => {
+  try {
+    const refreshToken = req.cookies?.refreshToken;
+    if (!refreshToken) {
+      return res.status(401).json({ success: false, message: "No refresh token" });
+    }
+
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+    const user = await db.user.findUnique({
+      where: { id: decoded.id },
+      select: { id: true, email: true, name: true, role: true, image: true, refreshToken: true }
+    });
+    if (!user || user.refreshToken !== refreshToken) {
+      return res.status(401).json({ success: false, message: "Invalid refresh token" });
+    }
+
+    const { accessToken } = generateAccessRefreshToken(user);
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+      maxAge: 1000 * 60 * 60 * 24 * 1
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Access token refreshed",
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        image: user.image
+      }
+    });
+  } catch (error) {
+    console.error("Error refreshing token", error);
+    return res.status(401).json({ success: false, message: "Failed to refresh token" });
+  }
 }

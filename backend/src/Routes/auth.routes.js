@@ -1,5 +1,5 @@
 import express from "express";
-import { check, getProfile, login, logout, register, userVerify } from "../controllers/auth.controllers.js";
+import { check, getProfile, login, logout, refresh, register, userVerify } from "../controllers/auth.controllers.js";
 import { isLoggedIn, tryAuthenticate } from "../middlewares/auth.middleware.js";
 
 const authRoutes = express.Router();
@@ -12,6 +12,7 @@ authRoutes.get("/verify/:token", userVerify)
 authRoutes.get("/get-profile", tryAuthenticate, getProfile)
 authRoutes.post("/logout", isLoggedIn, logout)
 authRoutes.get("/check", isLoggedIn, check)
+authRoutes.post("/refresh", refresh)
 
 
 export default authRoutes
